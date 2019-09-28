@@ -21,6 +21,17 @@
   color: #09d3ac;
 }
 
+.input-field-number {
+  width: 50px;
+}
+
+.remove-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: red;
+  font-weight: bolder;
+  border: 0px;
+}
+
 .hidden-button {
   display: none;
 }
