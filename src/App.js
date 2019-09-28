@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import WorkoutTimer from "./WorkoutTimer.jsx"
+import WorkoutTimer from "./Timer/WorkoutTimer.jsx"
+import Form from "./Form/Form.jsx"
 import exampleData from "./exampleData";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <WorkoutTimer workoutArr={exampleData}/>
+        <Form />
+        {/* <WorkoutTimer workoutArr={exampleData}/> */}
       </header>
     </div>
   );
