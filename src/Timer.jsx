@@ -12,7 +12,15 @@ class Timer extends Component {
       isTicking: false,
     }
   }
-
+  
+  componentDidUpdate(prevProps) {
+    if (this.props.time != prevProps.time) {
+      this.setState({
+        timerLeft: this.props.time,
+        timerResume: this.props.time,
+      })
+    }
+  }
 
   startTimer() {
     if (!this.state.isTicking) {
@@ -52,23 +60,42 @@ class Timer extends Component {
       isTicking: false,
     });
   }
+  
+  prevSection(autoStart=true) {
+    this.props.skipPrev();
+    this.resetTimer();
+    if (autoStart) {
+      this.startTimer();
+    }
+  }
 
-  nextSection() {
+  nextSection(autoStart=true) {
     this.props.skipNext();
     this.resetTimer();
-    this.startTimer();
+    if (autoStart) {
+      this.startTimer();
+    }
   }
 
   render() {
     let isTickingCSS = (this.state.isTicking) ? 'timer-running' : 'timer-paused';
+    let prevClass = (this.props.hasPrev) ? 'display-button' : 'hidden-button';
+    let nextClass = (this.props.hasNext) ? 'display-button' : 'hidden-button';
     return (
       <div>
         <h3>{this.props.movement}</h3>
         <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
+        <button 
+          className={prevClass}
+          onClick={this.prevSection.bind(this, false)}
+          >Prev</button>
         <button onClick={this.startTimer.bind(this)}>Start</button>
         <button onClick={this.pauseTimer.bind(this)}>Pause</button>
         {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
-        <button onClick={this.nextSection.bind(this)}>Next</button>
+        <button 
+          className={nextClass}
+          onClick={this.nextSection.bind(this, false)}
+          >Next</button>
       </div>
     );
   }
@@ -77,7 +104,10 @@ class Timer extends Component {
 Timer.propTypes = {
   movement: PT.string.isRequired,
   time: PT.number.isRequired,
-  skipNext: PT.func.isRequired
+  skipPrev: PT.func.isRequired,
+  skipNext: PT.func.isRequired,
+  hasPrev: PT.bool.isRequired,
+  hasNext: PT.bool.isRequired,
 }
 
 export default Timer;

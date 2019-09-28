@@ -10,19 +10,30 @@ class WorkoutTimer extends Component {
     }
   }
 
-  moveToNext() {
+  movePrev() {
     this.setState({
-      movementIndex: Math.min(this.state.movementIndex + 1, this.props.workoutArr.length),
+      movementIndex: Math.max(this.state.movementIndex - 1, 0),
+    });
+  }
+
+  moveNext() {
+    this.setState({
+      movementIndex: Math.min(this.state.movementIndex + 1, this.props.workoutArr.length-1),
     });
   }
 
   render() {
     let thisMovement = this.props.workoutArr[this.state.movementIndex];
+    let hasPrev = this.state.movementIndex !== 0;
+    let hasNext = this.state.movementIndex !== this.props.workoutArr.length-1;
     return (
       <Timer 
         movement={thisMovement.movement} 
         time={thisMovement.time} 
-        skipNext={this.moveToNext.bind(this)}
+        skipPrev={this.movePrev.bind(this)}
+        skipNext={this.moveNext.bind(this)}
+        hasPrev={hasPrev}
+        hasNext={hasNext}
       />
     );
   }
