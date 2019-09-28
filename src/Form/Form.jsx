@@ -13,8 +13,19 @@ class Form extends Component {
   }
 
   generateMovementList() {
-    // create the exampleData here and RETURN IT
-    // will go into WOrkoutTimer as a prop
+    let result = [];
+    for (let i = 0; i < this.state.numRounds; i++) {
+      let newMovementList = this.state.movementList.reduce((accum, movement) => {
+        accum.push({
+            movement: movement.movement.toUpperCase(),
+            time: movement.time,
+            roundNo: i,
+        });
+        return accum;
+      }, []);
+      result = result.concat(newMovementList);
+    }
+    return result;
   }
 
   handleChangeMovement(index, movement) {
@@ -23,7 +34,6 @@ class Form extends Component {
     this.setState({
       movementList: newMovementList
     })
-    // console.log(this.state.movementList);
   }
 
   handleChangeTime(index, time) {
@@ -32,7 +42,6 @@ class Form extends Component {
     this.setState({
       movementList: newMovementList
     })
-    // console.log(this.state.movementList);
   }
 
   handleChangeNumRounds(newNum) {
@@ -50,14 +59,12 @@ class Form extends Component {
     this.setState({
       movementList: newMovementList,
     })
-    // console.log(this.state.movementList);
   }
 
   render() {
     return (
       <div>
         <form>
-
           {this.state.movementList.map((movement, index) => {
             return (
               <React.Fragment key={`movement${zeroPad(index, 3)}`}>
@@ -99,7 +106,7 @@ class Form extends Component {
           <br/>
           <button onClick={(e) => {
             e.preventDefault();
-            console.log(`WORKOUT STARTED: ${this.state.movementList} ${this.state.numRounds}`)
+            console.log(this.generateMovementList())
           }}>START WORKOUT</button>
         </form>
       </div>
