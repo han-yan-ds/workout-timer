@@ -23,7 +23,7 @@ class Timer extends Component {
       })
       this.timer = setInterval(() => {
         let updatedTimeLeft = this.state.timerResume - (moment.now() - this.state.startingEpoch) / 1000;
-        if (updatedTimeLeft * 1000 < 1) {
+        if (updatedTimeLeft * 1000 < 0) {
           this.pauseTimer();
           this.nextSection();
         } else {
@@ -44,8 +44,19 @@ class Timer extends Component {
     }
   }
 
+  resetTimer() {
+    clearInterval(this.timer);
+    this.setState({
+      timerResume: this.props.time,
+      timerLeft: this.props.time,
+      isTicking: false,
+    });
+  }
+
   nextSection() {
-    console.log("NEXT section, consolelogged for now")
+    this.props.skipNext();
+    this.resetTimer();
+    this.startTimer();
   }
 
   render() {
@@ -56,6 +67,7 @@ class Timer extends Component {
         <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
         <button onClick={this.startTimer.bind(this)}>Start</button>
         <button onClick={this.pauseTimer.bind(this)}>Pause</button>
+        {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
         <button onClick={this.nextSection.bind(this)}>Next</button>
       </div>
     );
@@ -64,7 +76,8 @@ class Timer extends Component {
 
 Timer.propTypes = {
   movement: PT.string.isRequired,
-  time: PT.number.isRequired
+  time: PT.number.isRequired,
+  skipNext: PT.func.isRequired
 }
 
 export default Timer;
