@@ -33,7 +33,9 @@ class Timer extends Component {
         let updatedTimeLeft = this.state.timerResume - (moment.now() - this.state.startingEpoch) / 1000;
         if (updatedTimeLeft * 1000 < 0) {
           this.pauseTimer();
-          this.nextSection();
+          if (this.props.hasNext) {
+            this.nextSection();
+          }
         } else {
           this.setState({
             timerLeft: updatedTimeLeft,
@@ -96,6 +98,7 @@ class Timer extends Component {
           className={nextClass}
           onClick={this.nextSection.bind(this, false)}
           >Next</button>
+        <p>{this.props.nextUp}</p>
       </div>
     );
   }
@@ -108,6 +111,7 @@ Timer.propTypes = {
   skipNext: PT.func.isRequired,
   hasPrev: PT.bool.isRequired,
   hasNext: PT.bool.isRequired,
+  nextUp: PT.string.isRequired
 }
 
 export default Timer;
