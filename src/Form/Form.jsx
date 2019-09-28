@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import PT from 'prop-types';
 import {zeroPad} from '../util/util';
-import exampleData from '../exampleData';
 
 class Form extends Component {
   constructor(props) {
@@ -69,6 +67,7 @@ class Form extends Component {
             return (
               <React.Fragment key={`movement${zeroPad(index, 3)}`}>
                 <input type="text" 
+                  className="input-button-movement"
                   onChange={(e) => {
                     this.handleChangeMovement(index, e.target.value);
                   }}
@@ -77,6 +76,7 @@ class Form extends Component {
                 >
                 </input>
                 <input type="number"
+                  className="input-button-time"
                   onChange={(e) => {
                     this.handleChangeTime(index, Number(e.target.value));
                   }}
