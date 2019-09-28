@@ -7,7 +7,7 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movementList: exampleData,
+      movementList: [{movement: '', time: 20}],
       numRounds: 1,
     }
   }
@@ -23,7 +23,7 @@ class Form extends Component {
     this.setState({
       movementList: newMovementList
     })
-    console.log(this.state.movementList);
+    // console.log(this.state.movementList);
   }
 
   handleChangeTime(index, time) {
@@ -32,7 +32,13 @@ class Form extends Component {
     this.setState({
       movementList: newMovementList
     })
-    console.log(this.state.movementList);
+    // console.log(this.state.movementList);
+  }
+
+  handleChangeNumRounds(newNum) {
+    this.setState({
+      numRounds: newNum
+    })
   }
 
   addInput() {
@@ -44,13 +50,14 @@ class Form extends Component {
     this.setState({
       movementList: newMovementList,
     })
-    console.log(this.state.movementList);
+    // console.log(this.state.movementList);
   }
 
   render() {
     return (
       <div>
         <form>
+
           {this.state.movementList.map((movement, index) => {
             return (
               <React.Fragment key={`movement${zeroPad(index, 3)}`}>
@@ -58,19 +65,15 @@ class Form extends Component {
                   onChange={(e) => {
                     this.handleChangeMovement(index, e.target.value);
                   }}
-                  className="movement-input"
                   placeholder="Name of Exercise"
-                  name={`m${zeroPad(index, 3)}`}
                   value={movement.movement}
                 >
                 </input>
                 <input type="number"
                   onChange={(e) => {
-                    this.handleChangeTime(index, e.target.value);
+                    this.handleChangeTime(index, Number(e.target.value));
                   }}
-                  className="movement-duration"
                   placeholder="# sec"
-                  name={`d${zeroPad(index, 3)}`}
                   value={movement.time}
                 >
                 </input>
@@ -82,7 +85,22 @@ class Form extends Component {
             e.preventDefault();
             this.addInput();
           }}>Add</button>
-          
+          <br/>
+          <br/>
+          <span>Number of Rounds:</span>
+          <input type="number"
+            onChange={(e) => {
+              e.preventDefault();
+              this.handleChangeNumRounds(Number(e.target.value));
+            }}
+            value={this.state.numRounds}>
+          </input>
+          <br/>
+          <br/>
+          <button onClick={(e) => {
+            e.preventDefault();
+            console.log(`WORKOUT STARTED: ${this.state.movementList} ${this.state.numRounds}`)
+          }}>START WORKOUT</button>
         </form>
       </div>
     );
