@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {zeroPad} from '../util/util';
+import WorkoutTimer from '../Timer/WorkoutTimer.jsx'
 
 class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movementList: [{movement: '', time: 20}],
+      movementList: [{movement: '', time: 20, roundNo: 0}],
+      finalWorkout: [{movement: '', time: 20, roundNo: 0}],
       numRounds: 1,
     }
   }
@@ -23,7 +25,9 @@ class Form extends Component {
       }, []);
       result = result.concat(newMovementList);
     }
-    return result;
+    this.setState({
+      finalWorkout: result
+    })
   }
 
   handleChangeMovement(index, movement) {
@@ -61,55 +65,69 @@ class Form extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          {this.state.movementList.map((movement, index) => {
-            return (
-              <React.Fragment key={`movement${zeroPad(index, 3)}`}>
-                <input type="text" 
-                  className="input-button-movement"
-                  onChange={(e) => {
-                    this.handleChangeMovement(index, e.target.value);
-                  }}
-                  placeholder="Name of Exercise"
-                  value={movement.movement}
-                >
-                </input>
-                <input type="number"
-                  className="input-button-time"
-                  onChange={(e) => {
-                    this.handleChangeTime(index, Number(e.target.value));
-                  }}
-                  placeholder="# sec"
-                  value={movement.time}
-                >
-                </input>
-              </React.Fragment>
-            );
-          })}
-          <br/>
-          <button onClick={(e) => {
-            e.preventDefault();
-            this.addInput();
-          }}>Add</button>
-          <br/>
-          <br/>
-          <span>Number of Rounds:</span>
-          <input type="number"
-            onChange={(e) => {
+      <React.Fragment>
+
+        <div id="form">
+          <form>
+            {this.state.movementList.map((movement, index) => {
+              return (
+                <React.Fragment key={`movement${zeroPad(index, 3)}`}>
+                  <input type="text" 
+                    className="input-button-movement"
+                    onChange={(e) => {
+                      this.handleChangeMovement(index, e.target.value);
+                    }}
+                    placeholder="Name of Exercise"
+                    value={movement.movement}
+                  >
+                  </input>
+                  <input type="number"
+                    className="input-button-time"
+                    onChange={(e) => {
+                      this.handleChangeTime(index, Number(e.target.value));
+                    }}
+                    placeholder="# sec"
+                    value={movement.time}
+                  >
+                  </input>
+                  {/* <button onClick={(e) => {
+                    
+                  }}>
+                    X
+                  </button> */}
+                </React.Fragment>
+              );
+            })}
+            <br/>
+            <button onClick={(e) => {
               e.preventDefault();
-              this.handleChangeNumRounds(Number(e.target.value));
-            }}
-            value={this.state.numRounds}>
-          </input>
-          <br/>
-          <br/>
-          <button onClick={(e) => {
-            e.preventDefault();
-            console.log(this.generateMovementList())
-          }}>START WORKOUT</button>
-        </form>
-      </div>
+              this.addInput();
+            }}>Add</button>
+            <br/>
+            <br/>
+            <span>Number of Rounds:</span>
+            <input type="number"
+              onChange={(e) => {
+                e.preventDefault();
+                this.handleChangeNumRounds(Number(e.target.value));
+              }}
+              value={this.state.numRounds}>
+            </input>
+            <br/>
+            <br/>
+            <button onClick={(e) => {
+              e.preventDefault();
+              this.generateMovementList();
+            }}>START WORKOUT</button>
+          </form>
+        </div>
+        
+
+        <div id="timer">
+          <WorkoutTimer workoutArr={this.state.finalWorkout} numRounds={this.state.numRounds}/>
+        </div>
+
+      </React.Fragment>
     );
   }
 }

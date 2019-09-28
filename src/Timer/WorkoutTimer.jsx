@@ -40,6 +40,7 @@ class WorkoutTimer extends Component {
         hasPrev={hasPrev}
         hasNext={hasNext}
         nextUp={nextUp}
+        numRounds={this.props.numRounds}
       />
     );
   }
@@ -51,6 +52,7 @@ WorkoutTimer.propTypes = {
     time: PT.number.isRequired,
     roundNo: PT.number.isRequired,
   })).isRequired,
+  numRounds: PT.number.isRequired
 }
 
 export default WorkoutTimer;
