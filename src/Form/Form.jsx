@@ -36,14 +36,15 @@ class Form extends Component {
   }
 
   addInput() {
-    // let newMovementList = this.state.movementList.slice();
-    // newMovementList.push({
-    //   movement: '',
-    //   time: ''
-    // })
-    // this.setState({
-    //   movementList: newMovementList,
-    // })
+    let newMovementList = this.state.movementList.slice();
+    newMovementList.push({
+      movement: '',
+      time: 20
+    })
+    this.setState({
+      movementList: newMovementList,
+    })
+    console.log(this.state.movementList);
   }
 
   render() {
@@ -76,6 +77,12 @@ class Form extends Component {
               </React.Fragment>
             );
           })}
+          <br/>
+          <button onClick={(e) => {
+            e.preventDefault();
+            this.addInput();
+          }}>Add</button>
+          
         </form>
       </div>
     );
