@@ -12,9 +12,9 @@ class Timer extends Component {
       isTicking: false,
     }
   }
-  
+
   componentDidUpdate(prevProps) {
-    if (this.props.time != prevProps.time) {
+    if (this.props.time !== prevProps.time) {
       this.setState({
         timerLeft: this.props.time,
         timerResume: this.props.time,
@@ -62,8 +62,8 @@ class Timer extends Component {
       isTicking: false,
     });
   }
-  
-  prevSection(autoStart=true) {
+
+  prevSection(autoStart = true) {
     this.props.skipPrev();
     this.resetTimer();
     if (autoStart) {
@@ -71,7 +71,7 @@ class Timer extends Component {
     }
   }
 
-  nextSection(autoStart=true) {
+  nextSection(autoStart = true) {
     this.props.skipNext();
     this.resetTimer();
     if (autoStart) {
@@ -87,17 +87,20 @@ class Timer extends Component {
       <div>
         <h3>{this.props.movement}</h3>
         <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
-        <button 
+
+        <button
           className={prevClass}
           onClick={this.prevSection.bind(this, false)}
-          >Prev</button>
+        >Prev</button>
         <button onClick={this.startTimer.bind(this)}>Start</button>
         <button onClick={this.pauseTimer.bind(this)}>Pause</button>
         {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
-        <button 
+        <button
           className={nextClass}
           onClick={this.nextSection.bind(this, false)}
-          >Next</button>
+        >Next</button>
+
+        <p>Round: {this.props.roundNo + 1}, Step: {this.props.movementNo + 1}</p>
         <p>{this.props.nextUp}</p>
       </div>
     );
@@ -107,6 +110,8 @@ class Timer extends Component {
 Timer.propTypes = {
   movement: PT.string.isRequired,
   time: PT.number.isRequired,
+  roundNo: PT.number.isRequired,
+  movementNo: PT.number.isRequired,
   skipPrev: PT.func.isRequired,
   skipNext: PT.func.isRequired,
   hasPrev: PT.bool.isRequired,

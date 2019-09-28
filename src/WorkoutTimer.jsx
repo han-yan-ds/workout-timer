@@ -33,6 +33,8 @@ class WorkoutTimer extends Component {
       <Timer 
         movement={thisMovement.movement} 
         time={thisMovement.time} 
+        roundNo={thisMovement.roundNo}
+        movementNo={this.state.movementIndex}
         skipPrev={this.movePrev.bind(this)}
         skipNext={this.moveNext.bind(this)}
         hasPrev={hasPrev}
@@ -47,6 +49,7 @@ WorkoutTimer.propTypes = {
   workoutArr: PT.arrayOf(PT.shape({
     movement: PT.string.isRequired,
     time: PT.number.isRequired,
+    roundNo: PT.number.isRequired,
   })).isRequired,
 }
 
