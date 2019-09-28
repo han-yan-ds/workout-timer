@@ -19,7 +19,7 @@ function App() {
         >
           Learn React
         </a> */}
-        <Timer />
+        <Timer time={90} movement={"Pushups"}/>
       </header>
     </div>
   );

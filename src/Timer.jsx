@@ -5,28 +5,36 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startingTime: 30,
-      timeLeft: 30,
-      start: 0,
+      timerResume: this.props.time,
+      timerLeft: this.props.time,
+      startingEpoch: 0, // 0 is meaningless placeholder here
+      isTicking: false,
     }
   }
 
 
   startTimer() {
-    this.setState({
-      start: Date.now()
-    })
-    this.timer = setInterval(() => {
+    if (!this.state.isTicking) {
       this.setState({
-        timeLeft: Math.round(this.state.startingTime - (Date.now() - this.state.start)/1000)
+        startingEpoch: moment.now(),
+        timerResume: this.state.timerLeft,
+        isTicking: true,
       })
-    }, 1);
-    // console.log("Start, consolelogged for now");
+      this.timer = setInterval(() => {
+        this.setState({
+          timerLeft: this.state.timerResume - (moment.now() - this.state.startingEpoch)/1000
+        })
+      }, 1);
+    }
   }
 
   pauseTimer() {
-    clearInterval(this.timer);
-    console.log("Pause, consolelogged for now")
+    if (this.state.isTicking) {
+      clearInterval(this.timer);
+      this.setState({
+        isTicking: false,
+      })
+    }
   }
 
   nextSection() {
@@ -34,9 +42,11 @@ class Timer extends Component {
   }
 
   render() {
+    let isTickingCSS = (this.state.isTicking) ? 'timer-running' : 'timer-paused';
     return (
       <div>
-        <h3>timer: {this.state.timeLeft}</h3>
+        <h3>{this.props.movement}</h3>
+        <h1 id={isTickingCSS}>{moment(this.state.timerLeft*1000).format('mm:ss')}</h1>
         <button onClick={this.startTimer.bind(this)}>Start</button>
         <button onClick={this.pauseTimer.bind(this)}>Pause</button>
         <button onClick={this.nextSection.bind(this)}>Next</button>
