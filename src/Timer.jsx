@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
+import PT from 'prop-types';
 
 class Timer extends Component {
   constructor(props) {
@@ -21,9 +22,15 @@ class Timer extends Component {
         isTicking: true,
       })
       this.timer = setInterval(() => {
-        this.setState({
-          timerLeft: this.state.timerResume - (moment.now() - this.state.startingEpoch)/1000
-        })
+        let updatedTimeLeft = this.state.timerResume - (moment.now() - this.state.startingEpoch) / 1000;
+        if (updatedTimeLeft * 1000 < 1) {
+          this.pauseTimer();
+          this.nextSection();
+        } else {
+          this.setState({
+            timerLeft: updatedTimeLeft,
+          });
+        }
       }, 1);
     }
   }
@@ -46,13 +53,18 @@ class Timer extends Component {
     return (
       <div>
         <h3>{this.props.movement}</h3>
-        <h1 id={isTickingCSS}>{moment(this.state.timerLeft*1000).format('mm:ss')}</h1>
+        <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
         <button onClick={this.startTimer.bind(this)}>Start</button>
         <button onClick={this.pauseTimer.bind(this)}>Pause</button>
         <button onClick={this.nextSection.bind(this)}>Next</button>
       </div>
     );
   }
+}
+
+Timer.propTypes = {
+  movement: PT.string.isRequired,
+  time: PT.number.isRequired
 }
 
 export default Timer;
