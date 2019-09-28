@@ -99,7 +99,7 @@ class Timer extends Component {
           className={nextClass}
           onClick={this.nextSection.bind(this, false)}
         >Next</button>
-
+        <br/><br/>
         <p>Round: {this.props.roundNo + 1}, Step: {(this.props.movementNo%this.props.numRounds)+1}</p>
         <p>{this.props.nextUp}</p>
       </div>

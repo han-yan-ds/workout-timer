@@ -63,17 +63,27 @@ class Form extends Component {
     })
   }
 
+  removeInput(index) {
+    let newMovementList = this.state.movementList.slice();
+    newMovementList.splice(index, 1);
+    this.setState({
+      movementList: newMovementList,
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
 
         <div id="form">
           <form>
+            {/* START EDITING MOVEMENTS SECTION */}
+            {/* START EACH INPUT FIELDS FOR MOVEMENTS */}
             {this.state.movementList.map((movement, index) => {
               return (
                 <React.Fragment key={`movement${zeroPad(index, 3)}`}>
                   <input type="text" 
-                    className="input-button-movement"
+                    className="input-field-movement"
                     onChange={(e) => {
                       this.handleChangeMovement(index, e.target.value);
                     }}
@@ -82,7 +92,7 @@ class Form extends Component {
                   >
                   </input>
                   <input type="number"
-                    className="input-button-time"
+                    className="input-field-number"
                     onChange={(e) => {
                       this.handleChangeTime(index, Number(e.target.value));
                     }}
@@ -90,43 +100,50 @@ class Form extends Component {
                     value={movement.time}
                   >
                   </input>
-                  {/* <button onClick={(e) => {
-                    
-                  }}>
+                  <button onClick={(e) => {
+                    e.preventDefault();
+                    this.removeInput(index);
+                  }}
+                  className="remove-button">
                     X
-                  </button> */}
+                  </button>
                 </React.Fragment>
               );
             })}
+            {/* END EACH INPUT FIELDS FOR MOVEMENTS */} 
             <br/>
             <button onClick={(e) => {
               e.preventDefault();
               this.addInput();
             }}>Add</button>
-            <br/>
-            <br/>
-            <span>Number of Rounds:</span>
+            {/* END EDITING MOVEMENTS SECTION */}
+            <br/><br/><br/>
+            {/* START NUM ROUNDS INPUT SECTION */}
+            <span>Number of Rounds:&nbsp;&nbsp;</span>
             <input type="number"
               onChange={(e) => {
                 e.preventDefault();
                 this.handleChangeNumRounds(Number(e.target.value));
               }}
+              className="input-field-number"
               value={this.state.numRounds}>
             </input>
-            <br/>
-            <br/>
+            {/* END NUM ROUNDS INPUT SECTION */}
+            <br/><br/>
+            {/* START START-WORKOUT SECTION */}
             <button onClick={(e) => {
               e.preventDefault();
               this.generateMovementList();
             }}>START WORKOUT</button>
+            {/* END START-WORKOUT SECTION */}
           </form>
         </div>
         
-
+        {/* START TIMER SECTION */}
         <div id="timer">
           <WorkoutTimer workoutArr={this.state.finalWorkout} numRounds={this.state.numRounds}/>
         </div>
-
+        {/* END TIMER SECTION */}
       </React.Fragment>
     );
   }
