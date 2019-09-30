@@ -4,6 +4,7 @@ import {
   finalWorkout, 
   numRounds,
   currentMovementIndex,
+  isTimerView,
 } from './reducers';
 // import other reducers
 
@@ -13,4 +14,5 @@ export default combineReducers({
   finalWorkout,
   numRounds,
   currentMovementIndex,
+  isTimerView,
 });

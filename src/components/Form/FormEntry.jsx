@@ -1,4 +1,5 @@
 import React from 'react';
+import PT from 'prop-types';
 
 function FormEntry({ 
   movementList, 
@@ -38,6 +39,21 @@ function FormEntry({
       <br />
     </React.Fragment>
   );
+}
+
+FormEntry.propTypes = {
+  movementList: PT.arrayOf(PT.shape({
+    movement: PT.string.isRequired,
+    time: PT.number.isRequired,
+  })).isRequired, 
+  movement: PT.shape({
+    movement: PT.string.isRequired,
+    time: PT.number.isRequired,
+  }).isRequired,
+  index: PT.number.isRequired,
+  handleChangeMovement: PT.func.isRequired, 
+  handleChangeTime: PT.func.isRequired, 
+  handleRemoveInput: PT.func.isRequired, 
 }
 
 export default FormEntry;

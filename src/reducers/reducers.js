@@ -36,9 +36,21 @@ function currentMovementIndex(movementIndex = 0, action) {
   }
 }
 
+function isTimerView(isTimer = false, action) {
+  switch (action.type) {
+    case 'SWITCH_TO_FORM':
+      return false;
+    case 'SWITCH_TO_TIMER':
+      return true;
+    default:
+      return isTimer;
+  }
+}
+
 export {
   movementList,
   finalWorkout,
   numRounds,
   currentMovementIndex,
+  isTimerView,
 };

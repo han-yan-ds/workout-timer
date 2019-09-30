@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
-import { setWorkout, setMovementList, setNumRounds } from '../../actions/actions';
+import { setWorkout, setMovementList, setNumRounds, switchToTimer } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
 
 function generateFinalWorkout(movementList, numRounds) {
@@ -21,10 +22,11 @@ function generateFinalWorkout(movementList, numRounds) {
 }
 
 function mapStateToProps(state) {
-  const { movementList, numRounds } = state;
+  const { movementList, numRounds, isTimerView } = state;
   return {
     movementList,
     numRounds,
+    isTimerView,
   }
 }
 
@@ -56,62 +58,82 @@ function mapDispatchToProps(dispatch) {
       let newMovementList = movementList.slice();
       newMovementList.splice(index, 1);
       dispatch(setMovementList(newMovementList));
+    },
+    switchToTimerView: () => {
+      dispatch(switchToTimer());
     }
   }
 }
 
 function Form({
-  movementList, numRounds,
+  movementList, numRounds, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleAddInput, handleRemoveInput,
+  handleAddInput, handleRemoveInput, switchToTimerView
 }) {
+  let hideClass = (isTimerView) ? 'hide' : 'show';
   return (
-    <React.Fragment>
-      <div id="form">
-        <form>
-          {movementList.map((movement, index) => {
-            return (
-              <FormEntry key={`movement${zeroPad(index, 3)}`}
-                movementList={movementList}
-                movement={movement}
-                index={index}
-                handleChangeMovement={handleChangeMovement}
-                handleChangeTime={handleChangeTime}
-                handleRemoveInput={handleRemoveInput}
-              />
-            );
-          })}
+    <div id="form-view" className={hideClass}>
+      <form>
+        {movementList.map((movement, index) => {
+          return (
+            <FormEntry key={`movement${zeroPad(index, 3)}`}
+              movementList={movementList}
+              movement={movement}
+              index={index}
+              handleChangeMovement={handleChangeMovement}
+              handleChangeTime={handleChangeTime}
+              handleRemoveInput={handleRemoveInput}
+            />
+          );
+        })}
 
-          <button onClick={(e) => {
+        <button onClick={(e) => {
+          e.preventDefault();
+          handleAddInput(movementList);
+        }}>Add</button>
+
+        <br /><br /><br />
+
+        {/* START NUM ROUNDS INPUT SECTION */}
+        <span>Number of Rounds:&nbsp;&nbsp;</span>
+        <input type="number"
+          onChange={(e) => {
             e.preventDefault();
-            handleAddInput(movementList);
-          }}>Add</button>
-
-          <br /><br /><br />
-
-          {/* START NUM ROUNDS INPUT SECTION */}
-          <span>Number of Rounds:&nbsp;&nbsp;</span>
-          <input type="number"
-            onChange={(e) => {
-              e.preventDefault();
-              handleChangeNumRounds(Number(e.target.value));
-            }}
-            className="input-field-number"
-            value={numRounds}>
-          </input>
-          {/* END NUM ROUNDS INPUT SECTION */}
-          <br /><br />
-          {/* START START-WORKOUT SECTION */}
-          <button onClick={(e) => {
-            e.preventDefault();
-            setFullWorkout(movementList, numRounds);
-          }}>START WORKOUT</button>
-          {/* END START-WORKOUT SECTION */}
-        </form>
-      </div>
-    </React.Fragment>
-
+            handleChangeNumRounds(Number(e.target.value));
+          }}
+          className="input-field-number"
+          value={numRounds}>
+        </input>
+        {/* END NUM ROUNDS INPUT SECTION */}
+        <br /><br />
+        {/* START START-WORKOUT SECTION */}
+        <button onClick={(e) => {
+          e.preventDefault();
+          switchToTimerView();
+          setFullWorkout(movementList, numRounds);
+        }}>
+          START WORKOUT
+        </button>
+        {/* END START-WORKOUT SECTION */}
+      </form>
+    </div>
   );
+}
+
+Form.propTypes = {
+  movementList: PT.arrayOf(PT.shape({
+    movement: PT.string.isRequired,
+    time: PT.number.isRequired,
+  })).isRequired, 
+  numRounds: PT.number.isRequired, 
+  isTimerView: PT.bool.isRequired,
+  setFullWorkout: PT.func.isRequired, 
+  handleChangeMovement: PT.func.isRequired, 
+  handleChangeTime: PT.func.isRequired, 
+  handleChangeNumRounds: PT.func.isRequired,
+  handleAddInput: PT.func.isRequired, 
+  handleRemoveInput: PT.func.isRequired, 
+  switchToTimerView: PT.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

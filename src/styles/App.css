@@ -36,6 +36,10 @@
   display: none;
 }
 
+.hide {
+  display: none;
+}
+
 #timer-running {
   color: limegreen;
 }

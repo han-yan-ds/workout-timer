@@ -28,9 +28,23 @@ function changeMovementIndex(movementIndex = 0) {
   }
 }
 
+function switchToForm() {
+  return {
+    type: 'SWITCH_TO_FORM',
+  }
+}
+
+function switchToTimer() {
+  return {
+    type: 'SWITCH_TO_TIMER',
+  }
+}
+
 export {
   setMovementList,
   setWorkout,
   setNumRounds,
   changeMovementIndex,
+  switchToForm,
+  switchToTimer,
 };
