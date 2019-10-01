@@ -32,8 +32,19 @@
   border: 0px;
 }
 
+.display-button {
+  background-color: lightblue;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  margin: 0 1px;
+}
+
 .hidden-button {
-  display: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px;
+  color: rgba(0, 0, 0, 0);
+  pointer-events: none;
 }
 
 .hide {
