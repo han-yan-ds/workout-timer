@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import PT from 'prop-types';
 
-// const beepTick = new Audio('./sounds/beep-02.mp3');
+const beepTick = new Audio('./sounds/beep-02.mp3');
 const flickerTimeLeft = 5;
+const beepTimeLeft = flickerTimeLeft;
 
 class Timer extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Timer extends Component {
       timerLeft: this.props.time,
       startingEpoch: 0, // 0 is meaningless placeholder here
       isTicking: false,
+      prevTimeLeft: 0, // 0 is meaningless placeholder here
     }
   }
 
@@ -31,7 +33,7 @@ class Timer extends Component {
         startingEpoch: moment.now(),
         timerResume: this.state.timerLeft,
         isTicking: true,
-      })
+      });
       this.timer = setInterval(() => {
         let updatedTimeLeft = Math.ceil(
           this.state.timerResume - (moment.now() - this.state.startingEpoch) / 1000);
@@ -41,8 +43,12 @@ class Timer extends Component {
             this.nextSection();
           }
         } else {
+          if (updatedTimeLeft < beepTimeLeft && updatedTimeLeft !== this.state.prevTimeLeft) {
+            beepTick.play();
+          }
           this.setState({
             timerLeft: updatedTimeLeft,
+            prevTimeLeft: updatedTimeLeft,
           });
         }
       }, 1);
