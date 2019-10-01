@@ -83,8 +83,9 @@ class Timer extends Component {
     let isTickingCSS = (this.state.isTicking) ? 'timer-running' : 'timer-paused';
     let prevClass = (this.props.hasPrev) ? 'display-button' : 'hidden-button';
     let nextClass = (this.props.hasNext) ? 'display-button' : 'hidden-button';
+    let isAlmostDone = (this.state.timerLeft < 5 && this.state.isTicking) ? 'flicker' : 'no-flicker';
     return (
-      <div>
+      <div id="timer-area" className={isAlmostDone}>
         <h3>{this.props.movement}</h3>
         <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
 
