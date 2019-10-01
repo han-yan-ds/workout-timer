@@ -5,11 +5,15 @@ import FormEntry from './FormEntry.jsx';
 import { setWorkout, setMovementList, setNumRounds, switchToTimer } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
 
-function generateFinalWorkout(movementList, numRounds) {
-  let result = [];
-  movementList = movementList.filter((movement) => {
+function removeEmptyMovementEntries(movementList) {
+  return movementList.filter((movement) => {
     return (movement.movement !== '' && movement.time > 0);
   });
+}
+
+function generateFinalWorkout(movementList, numRounds) {
+  let result = [];
+  movementList = removeEmptyMovementEntries(movementList);
   for (let i = 0; i < numRounds; i++) {
     let newMovementList = movementList.reduce((accum, movement) => {
       accum.push({
@@ -116,8 +120,10 @@ function Form({
         {/* START START-WORKOUT SECTION */}
         <button onClick={(e) => {
           e.preventDefault();
-          switchToTimerView();
-          setFullWorkout(movementList, numRounds);
+          if (removeEmptyMovementEntries(movementList).length > 0) {
+            setFullWorkout(movementList, numRounds);
+            switchToTimerView();
+          }
         }}>
           START WORKOUT
         </button>
