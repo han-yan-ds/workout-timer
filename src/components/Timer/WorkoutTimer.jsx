@@ -51,7 +51,7 @@ function WorkoutTimer({
         hasPrev={hasPrev}
         hasNext={hasNext}
         nextUp={nextUp}
-        numRounds={numRounds}
+        numMovesPerRound={finalWorkout.length/numRounds}
       />
       <button onClick={() => {
         // somehow pause the Timer from here
@@ -71,7 +71,7 @@ WorkoutTimer.propTypes = {
     time: PT.number.isRequired,
     roundNo: PT.number.isRequired,
   })).isRequired,
-  numRounds: PT.number.isRequired,
+  numMovesPerRound: PT.number.isRequired,
   currentMovementIndex: PT.number.isRequired,
   isTimerView: PT.bool.isRequired,
   movePrev: PT.func.isRequired, 
