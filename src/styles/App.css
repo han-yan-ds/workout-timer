@@ -1,3 +1,7 @@
+button {
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
 }
@@ -21,8 +25,18 @@
   color: #09d3ac;
 }
 
+.input-field-movement {
+  text-align: center;
+}
+
 .input-field-number {
+  text-align: center;
   width: 50px;
+}
+
+.red-input {
+  background-color: salmon;
+  font-weight: bolder;
 }
 
 .remove-button {
@@ -32,8 +46,18 @@
   border: 0px;
 }
 
+.display-button {
+  background-color: lightblue;
+  height: 50px;
+  width: 50px;
+  margin: 0 1px;
+}
+
 .hidden-button {
-  display: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px;
+  color: rgba(0, 0, 0, 0);
+  pointer-events: none;
 }
 
 .hide {
@@ -46,4 +70,33 @@
 
 #timer-paused {
   color: red;
+}
+
+.flicker {
+  -webkit-animation: flickerAnimation 1s infinite;
+  -moz-animation: flickerAnimation 1s infinite;
+  -o-animation: flickerAnimation 1s infinite;
+   animation: flickerAnimation 1s infinite;
+}
+
+
+@keyframes flickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0.1; }
+  100% { opacity:1; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0.1; }
+  100% { opacity:1; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0.1; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0.1; }
+  100% { opacity:1; }
 }

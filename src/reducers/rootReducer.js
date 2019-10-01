@@ -5,6 +5,7 @@ import {
   numRounds,
   currentMovementIndex,
   isTimerView,
+  highlightInvalidForms,
 } from './reducers';
 // import other reducers
 
@@ -15,4 +16,5 @@ export default combineReducers({
   numRounds,
   currentMovementIndex,
   isTimerView,
+  highlightInvalidForms,
 });

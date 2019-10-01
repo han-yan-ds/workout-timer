@@ -47,10 +47,22 @@ function isTimerView(isTimer = false, action) {
   }
 }
 
+function highlightInvalidForms(highlight = false, action) {
+  switch (action.type) {
+    case 'HIGHLIGHT_INVALID_FORMS':
+      return true;
+    case 'UNHIGHLIGHT_INVALID_FORMS':
+      return false;
+    default:
+      return highlight;
+  }
+}
+
 export {
   movementList,
   finalWorkout,
   numRounds,
   currentMovementIndex,
   isTimerView,
+  highlightInvalidForms,
 };

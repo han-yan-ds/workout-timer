@@ -2,11 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
-import { setWorkout, setMovementList, setNumRounds, switchToTimer } from '../../actions/actions';
+import { setWorkout, setMovementList, setNumRounds, switchToTimer, 
+  highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
+
+function removeEmptyMovementEntries(movementList) {
+  return movementList.filter((movement) => {
+    return (movement.movement !== '' && movement.time > 0);
+  });
+}
 
 function generateFinalWorkout(movementList, numRounds) {
   let result = [];
+  movementList = removeEmptyMovementEntries(movementList);
   for (let i = 0; i < numRounds; i++) {
     let newMovementList = movementList.reduce((accum, movement) => {
       accum.push({
@@ -61,6 +69,12 @@ function mapDispatchToProps(dispatch) {
     },
     switchToTimerView: () => {
       dispatch(switchToTimer());
+    },
+    highlightInvalidForms: () => {
+      dispatch(highlightInvalidFormsAction());
+    },
+    unHighlightInvalidForms: () => {
+      dispatch(unHighlightInvalidFormsAction());
     }
   }
 }
@@ -68,11 +82,15 @@ function mapDispatchToProps(dispatch) {
 function Form({
   movementList, numRounds, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleAddInput, handleRemoveInput, switchToTimerView
+  handleAddInput, handleRemoveInput, switchToTimerView, 
+  highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
   return (
     <div id="form-view" className={hideClass}>
+      <p>
+        CREATE WORKOUT:
+      </p>
       <form>
         {movementList.map((movement, index) => {
           return (
@@ -97,6 +115,7 @@ function Form({
         {/* START NUM ROUNDS INPUT SECTION */}
         <span>Number of Rounds:&nbsp;&nbsp;</span>
         <input type="number"
+          min={1}
           onChange={(e) => {
             e.preventDefault();
             handleChangeNumRounds(Number(e.target.value));
@@ -109,8 +128,13 @@ function Form({
         {/* START START-WORKOUT SECTION */}
         <button onClick={(e) => {
           e.preventDefault();
-          switchToTimerView();
-          setFullWorkout(movementList, numRounds);
+          if (removeEmptyMovementEntries(movementList).length > 0) {
+            setFullWorkout(movementList, numRounds);
+            switchToTimerView();
+            unHighlightInvalidForms();
+          } else {
+            highlightInvalidForms();
+          }
         }}>
           START WORKOUT
         </button>
