@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
-import { setWorkout, setMovementList, setNumRounds, switchToTimer } from '../../actions/actions';
+import { setWorkout, setMovementList, setNumRounds, switchToTimer, 
+  highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
 
 function removeEmptyMovementEntries(movementList) {
@@ -68,6 +69,12 @@ function mapDispatchToProps(dispatch) {
     },
     switchToTimerView: () => {
       dispatch(switchToTimer());
+    },
+    highlightInvalidForms: () => {
+      dispatch(highlightInvalidFormsAction());
+    },
+    unHighlightInvalidForms: () => {
+      dispatch(unHighlightInvalidFormsAction());
     }
   }
 }
@@ -75,7 +82,8 @@ function mapDispatchToProps(dispatch) {
 function Form({
   movementList, numRounds, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleAddInput, handleRemoveInput, switchToTimerView
+  handleAddInput, handleRemoveInput, switchToTimerView, 
+  highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
   return (
@@ -123,6 +131,9 @@ function Form({
           if (removeEmptyMovementEntries(movementList).length > 0) {
             setFullWorkout(movementList, numRounds);
             switchToTimerView();
+            unHighlightInvalidForms();
+          } else {
+            highlightInvalidForms();
           }
         }}>
           START WORKOUT

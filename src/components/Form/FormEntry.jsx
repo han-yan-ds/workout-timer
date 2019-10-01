@@ -1,7 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PT from 'prop-types';
 
+function mapStateToProps(state) {
+  const {highlightInvalidForms} = state;
+  return {highlightInvalidForms};
+}
+
 function FormEntry({ 
+  highlightInvalidForms,
   movementList, 
   movement, 
   index, 
@@ -9,11 +16,12 @@ function FormEntry({
   handleChangeTime, 
   handleRemoveInput 
 }) {
-  let alertInputTime = (movement.time === 0) ? 'red-input' : '';
+  let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
+  let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
   return (
     <React.Fragment>
       <input type="text"
-        className="input-field-movement"
+        className={`input-field-movement ${alertInputMovement}`}
         onChange={(e) => {
           handleChangeMovement(movementList, index, e.target.value);
         }}
@@ -58,4 +66,4 @@ FormEntry.propTypes = {
   handleRemoveInput: PT.func.isRequired, 
 }
 
-export default FormEntry;
+export default connect(mapStateToProps, null)(FormEntry);

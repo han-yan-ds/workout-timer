@@ -40,6 +40,18 @@ function switchToTimer() {
   }
 }
 
+function highlightInvalidFormsAction() {
+  return {
+    type: 'HIGHLIGHT_INVALID_FORMS',
+  }
+}
+
+function unHighlightInvalidFormsAction() {
+  return {
+    type: 'UNHIGHLIGHT_INVALID_FORMS',
+  }
+}
+
 export {
   setMovementList,
   setWorkout,
@@ -47,4 +59,6 @@ export {
   changeMovementIndex,
   switchToForm,
   switchToTimer,
+  highlightInvalidFormsAction,
+  unHighlightInvalidFormsAction,
 };
