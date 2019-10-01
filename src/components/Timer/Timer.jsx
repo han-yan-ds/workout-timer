@@ -100,7 +100,7 @@ class Timer extends Component {
           onClick={this.nextSection.bind(this, false)}
         >Next</button>
         <br/><br/>
-        <p>Round: {this.props.roundNo + 1}, Step: {(this.props.movementNo%this.props.numRounds)+1}</p>
+        <p>Round: {this.props.roundNo + 1}, Step: {(this.props.movementNo%this.props.numMovesPerRound)+1}</p>
         <p>{this.props.nextUp}</p>
       </div>
     );
