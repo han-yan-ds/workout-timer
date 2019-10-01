@@ -116,7 +116,8 @@ Timer.propTypes = {
   skipNext: PT.func.isRequired,
   hasPrev: PT.bool.isRequired,
   hasNext: PT.bool.isRequired,
-  nextUp: PT.string.isRequired
+  nextUp: PT.string.isRequired,
+  numMovesPerRound: PT.number.isRequired,
 }
 
 export default Timer;

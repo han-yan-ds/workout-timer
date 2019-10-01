@@ -71,7 +71,6 @@ WorkoutTimer.propTypes = {
     time: PT.number.isRequired,
     roundNo: PT.number.isRequired,
   })).isRequired,
-  numMovesPerRound: PT.number.isRequired,
   currentMovementIndex: PT.number.isRequired,
   isTimerView: PT.bool.isRequired,
   movePrev: PT.func.isRequired, 
