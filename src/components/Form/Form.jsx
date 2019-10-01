@@ -103,6 +103,7 @@ function Form({
         {/* START NUM ROUNDS INPUT SECTION */}
         <span>Number of Rounds:&nbsp;&nbsp;</span>
         <input type="number"
+          min={1}
           onChange={(e) => {
             e.preventDefault();
             handleChangeNumRounds(Number(e.target.value));

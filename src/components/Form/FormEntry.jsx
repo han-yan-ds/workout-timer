@@ -9,6 +9,7 @@ function FormEntry({
   handleChangeTime, 
   handleRemoveInput 
 }) {
+  let alertInputTime = (movement.time === 0) ? 'red-input' : '';
   return (
     <React.Fragment>
       <input type="text"
@@ -22,7 +23,7 @@ function FormEntry({
       </input>
       <input type="number"
         min={0}
-        className="input-field-number"
+        className={`input-field-number ${alertInputTime}`}
         onChange={(e) => {
           handleChangeTime(movementList, index, Number(e.target.value));
         }}
