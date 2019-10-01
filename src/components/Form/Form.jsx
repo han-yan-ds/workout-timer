@@ -7,6 +7,9 @@ import { zeroPad } from '../../util/util';
 
 function generateFinalWorkout(movementList, numRounds) {
   let result = [];
+  movementList = movementList.filter((movement) => {
+    return (movement.movement !== '' && movement.time > 0);
+  });
   for (let i = 0; i < numRounds; i++) {
     let newMovementList = movementList.reduce((accum, movement) => {
       accum.push({
