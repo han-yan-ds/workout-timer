@@ -73,6 +73,9 @@ function Form({
   let hideClass = (isTimerView) ? 'hide' : 'show';
   return (
     <div id="form-view" className={hideClass}>
+      <p>
+        CREATE WORKOUT:
+      </p>
       <form>
         {movementList.map((movement, index) => {
           return (

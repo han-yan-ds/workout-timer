@@ -21,6 +21,7 @@ function FormEntry({
       >
       </input>
       <input type="number"
+        min={0}
         className="input-field-number"
         onChange={(e) => {
           handleChangeTime(movementList, index, Number(e.target.value));

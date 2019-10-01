@@ -3,6 +3,7 @@ import moment from 'moment';
 import PT from 'prop-types';
 
 const beepTick = new Audio('./sounds/beep-02.mp3');
+const beepTickFinish = new Audio('./sounds/beep-01a.mp3');
 const flickerTimeLeft = 5;
 const beepTimeLeft = flickerTimeLeft;
 
@@ -43,7 +44,10 @@ class Timer extends Component {
             this.nextSection();
           }
         } else {
-          if (updatedTimeLeft < beepTimeLeft && updatedTimeLeft !== this.state.prevTimeLeft) {
+          if (updatedTimeLeft === 0) {
+            beepTickFinish.play();
+          }
+          else if (updatedTimeLeft < beepTimeLeft && updatedTimeLeft !== this.state.prevTimeLeft) {
             beepTick.play();
           }
           this.setState({
