@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
-import { setWorkout, setMovementList, setNumRounds, switchToTimer, 
+import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, 
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
 
@@ -42,18 +42,19 @@ function generateFinalWorkout(movementList, numRounds, restTime = 0) {
 }
 
 function mapStateToProps(state) {
-  const { movementList, numRounds, isTimerView } = state;
+  const { movementList, numRounds, restTime, isTimerView } = state;
   return {
     movementList,
     numRounds,
+    restTime,
     isTimerView,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFullWorkout: (movementList, numRounds) => {
-      let fullWorkout = generateFinalWorkout(movementList, numRounds);
+    setFullWorkout: (movementList, numRounds, restTime) => {
+      let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       console.log(fullWorkout);
       dispatch(setWorkout(fullWorkout));
     },
@@ -69,6 +70,9 @@ function mapDispatchToProps(dispatch) {
     },
     handleChangeNumRounds: (numRounds) => {
       dispatch(setNumRounds(numRounds));
+    },
+    handleChangeRestTime: (restTime) => {
+      dispatch(setRestTime(restTime));
     },
     handleAddInput: (movementList) => {
       let newMovementList = movementList.slice();
@@ -93,9 +97,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function Form({
-  movementList, numRounds, isTimerView,
+  movementList, numRounds, restTime, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleAddInput, handleRemoveInput, switchToTimerView, 
+  handleChangeRestTime, handleAddInput, handleRemoveInput, switchToTimerView, 
   highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
@@ -125,8 +129,21 @@ function Form({
 
         <br /><br /><br />
 
+        {/* START REST TIME INPUT SECTION */}
+        <span id="rest-time-label">Rest Time:&nbsp;&nbsp;</span>
+        <input type="number"
+          min={0}
+          onChange={(e) => {
+            e.preventDefault();
+            handleChangeRestTime(Number(e.target.value));
+          }}
+          className="input-field-number"
+          value={restTime}>
+        </input>
+        {/* END REST TIME INPUT SECTION */}
+          <br/><br/>
         {/* START NUM ROUNDS INPUT SECTION */}
-        <span>Number of Rounds:&nbsp;&nbsp;</span>
+        <span id="num-rounds-label">#&nbsp;&nbsp;Rounds:&nbsp;&nbsp;</span>
         <input type="number"
           min={1}
           onChange={(e) => {
@@ -142,7 +159,7 @@ function Form({
         <button onClick={(e) => {
           e.preventDefault();
           if (removeEmptyMovementEntries(movementList).length > 0) {
-            setFullWorkout(movementList, numRounds);
+            setFullWorkout(movementList, numRounds, restTime);
             switchToTimerView();
             unHighlightInvalidForms();
           } else {

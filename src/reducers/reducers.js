@@ -27,6 +27,15 @@ function numRounds(numRounds = 1, action) {
   }
 }
 
+function restTime(rest = 10, action) {
+  switch (action.type) {
+    case 'SET_REST_TIME':
+      return action.restTime;
+    default:
+      return rest;
+  }
+}
+
 function currentMovementIndex(movementIndex = 0, action) {
   switch (action.type) {
     case 'CHANGE_MOVEMENT_INDEX':
@@ -62,6 +71,7 @@ export {
   movementList,
   finalWorkout,
   numRounds,
+  restTime,
   currentMovementIndex,
   isTimerView,
   highlightInvalidForms,

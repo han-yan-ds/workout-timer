@@ -21,6 +21,13 @@ function setNumRounds(numRounds = 1) {
   }
 }
 
+function setRestTime(restTime = 10) {
+  return {
+    type: 'SET_REST_TIME',
+    restTime,
+  }
+}
+
 function changeMovementIndex(movementIndex = 0) {
   return {
     type: 'CHANGE_MOVEMENT_INDEX',
@@ -56,6 +63,7 @@ export {
   setMovementList,
   setWorkout,
   setNumRounds,
+  setRestTime,
   changeMovementIndex,
   switchToForm,
   switchToTimer,
