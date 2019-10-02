@@ -55,7 +55,6 @@ function mapDispatchToProps(dispatch) {
   return {
     setFullWorkout: (movementList, numRounds, restTime) => {
       let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
-      console.log(fullWorkout);
       dispatch(setWorkout(fullWorkout));
     },
     handleChangeMovement: (movementList, index, movement) => {
@@ -122,7 +121,9 @@ function Form({
           );
         })}
 
-        <button onClick={(e) => {
+        <button 
+          type="submit"
+          onClick={(e) => {
           e.preventDefault();
           handleAddInput(movementList);
         }}>Add</button>
