@@ -1,4 +1,4 @@
-const defaultMovementList = [{movement: '', time: 20, roundNo: 0}];
+import { defaultMovementList } from '../util/util';
 
 function movementList(list = defaultMovementList, action) {
   switch (action.type) {
@@ -24,6 +24,15 @@ function numRounds(numRounds = 1, action) {
       return action.numRounds;
     default:
       return numRounds;
+  }
+}
+
+function restTime(rest = 10, action) {
+  switch (action.type) {
+    case 'SET_REST_TIME':
+      return action.restTime;
+    default:
+      return rest;
   }
 }
 
@@ -62,6 +71,7 @@ export {
   movementList,
   finalWorkout,
   numRounds,
+  restTime,
   currentMovementIndex,
   isTimerView,
   highlightInvalidForms,

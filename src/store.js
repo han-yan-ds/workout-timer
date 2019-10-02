@@ -2,10 +2,10 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { defaultMovementList } from './util/util';
 
 const initialData = {
-  // REDUX REFACTOR: FILL THIS IN
-  finalWorkout: [{movement: '', time: 20, roundNo: 0}]
+  finalWorkout: defaultMovementList,
 };
 
 export default function configureStore () {

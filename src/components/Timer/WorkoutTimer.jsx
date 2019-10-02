@@ -30,7 +30,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function WorkoutTimer({ 
-  finalWorkout, numRounds, currentMovementIndex, isTimerView,
+  finalWorkout, currentMovementIndex, isTimerView,
   movePrev, moveNext, switchToFormView 
 }) {
   let thisMovement = finalWorkout[currentMovementIndex];
@@ -45,13 +45,13 @@ function WorkoutTimer({
         movement={thisMovement.movement} 
         time={thisMovement.time} 
         roundNo={thisMovement.roundNo}
+        step={thisMovement.step}
         movementNo={currentMovementIndex}
         skipPrev={() => movePrev(currentMovementIndex)}
         skipNext={() => moveNext(currentMovementIndex, finalWorkout)}
         hasPrev={hasPrev}
         hasNext={hasNext}
         nextUp={nextUp}
-        numMovesPerRound={finalWorkout.length/numRounds}
       />
       <button onClick={() => {
         // somehow pause the Timer from here

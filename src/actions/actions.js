@@ -1,4 +1,4 @@
-const defaultMovementList = [{movement: '', time: 20, roundNo: 0}];
+import { defaultMovementList } from '../util/util';
 
 function setMovementList(movementList = defaultMovementList) {
   return {
@@ -18,6 +18,13 @@ function setNumRounds(numRounds = 1) {
   return {
     type: 'SET_NUM_ROUNDS',
     numRounds,
+  }
+}
+
+function setRestTime(restTime = 10) {
+  return {
+    type: 'SET_REST_TIME',
+    restTime,
   }
 }
 
@@ -56,6 +63,7 @@ export {
   setMovementList,
   setWorkout,
   setNumRounds,
+  setRestTime,
   changeMovementIndex,
   switchToForm,
   switchToTimer,
