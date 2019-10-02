@@ -1,4 +1,4 @@
-const defaultMovementList = [{movement: '', time: 20, roundNo: 0}];
+import { defaultMovementList } from '../util/util';
 
 function movementList(list = defaultMovementList, action) {
   switch (action.type) {

@@ -125,7 +125,7 @@ class Timer extends Component {
             <i className="material-icons">skip_next</i>
           </button>
         <br/><br/>
-        <p>Round: {this.props.roundNo + 1}, Step: {(this.props.movementNo%this.props.numMovesPerRound)+1}</p>
+        <p>Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
         <p>{this.props.nextUp}</p>
       </div>
     );
@@ -142,7 +142,7 @@ Timer.propTypes = {
   hasPrev: PT.bool.isRequired,
   hasNext: PT.bool.isRequired,
   nextUp: PT.string.isRequired,
-  numMovesPerRound: PT.number.isRequired,
+  step: PT.number.isRequired,
 }
 
 export default Timer;

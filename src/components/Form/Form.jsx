@@ -12,19 +12,31 @@ function removeEmptyMovementEntries(movementList) {
   });
 }
 
-function generateFinalWorkout(movementList, numRounds) {
+function generateFinalWorkout(movementList, numRounds, restTime = 0) {
   let result = [];
   movementList = removeEmptyMovementEntries(movementList);
   for (let i = 0; i < numRounds; i++) {
-    let newMovementList = movementList.reduce((accum, movement) => {
+    let newMovementList = movementList.reduce((accum, movement, index) => {
       accum.push({
         movement: movement.movement.toUpperCase(),
         time: movement.time,
         roundNo: i,
+        step: index+1,
       });
+      if (restTime > 0) {
+        accum.push({
+          movement: 'REST',
+          time: restTime,
+          roundNo: i,
+          step: index+1,
+        })
+      }
       return accum;
     }, []);
     result = result.concat(newMovementList);
+  }
+  if (restTime > 0) {
+    result.pop()
   }
   return result;
 }
@@ -42,6 +54,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setFullWorkout: (movementList, numRounds) => {
       let fullWorkout = generateFinalWorkout(movementList, numRounds);
+      console.log(fullWorkout);
       dispatch(setWorkout(fullWorkout));
     },
     handleChangeMovement: (movementList, index, movement) => {
