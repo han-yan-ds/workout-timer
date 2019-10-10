@@ -39,10 +39,12 @@ function FormEntry({
         value={movement.time}
       >
       </input>
-      <button onClick={(e) => {
-        e.preventDefault();
-        handleRemoveInput(movementList, index);
-      }}
+      <button 
+        onClick={(e) => {
+          e.preventDefault();
+          handleRemoveInput(movementList, index);
+        }}
+        onKeyPress={(e) => {/* do nothing, originally Enter key removes this button */}}
         className="remove-button">
         X
     </button>
