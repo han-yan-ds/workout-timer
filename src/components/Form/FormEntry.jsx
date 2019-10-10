@@ -27,8 +27,10 @@ function FormEntry({
           handleChangeMovement(movementList, index, e.target.value);
         }}
         onKeyPress={(e) => {
-          e.preventDefault(); // prevent Enter from removing field
-          handleAddInput();
+          if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
+            e.preventDefault(); // prevent Enter from removing field
+            handleAddInput();
+          }
         }}
         placeholder="Name of Exercise"
         value={movement.movement}
@@ -41,8 +43,10 @@ function FormEntry({
           handleChangeTime(movementList, index, Number(e.target.value));
         }}
         onKeyPress={(e) => {
-          e.preventDefault(); // prevent Enter from removing field
-          handleAddInput();
+          if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
+            e.preventDefault(); // prevent Enter from removing field
+            handleAddInput();
+          }
         }}
         placeholder="# sec"
         value={movement.time}
