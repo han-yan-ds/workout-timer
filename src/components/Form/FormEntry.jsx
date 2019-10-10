@@ -13,7 +13,8 @@ function FormEntry({
   movement, 
   index, 
   handleChangeMovement, 
-  handleChangeTime, 
+  handleChangeTime,
+  handleAddInput, 
   handleRemoveInput 
 }) {
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
@@ -25,6 +26,10 @@ function FormEntry({
         onChange={(e) => {
           handleChangeMovement(movementList, index, e.target.value);
         }}
+        onKeyPress={(e) => {
+          e.preventDefault(); // prevent Enter from removing field
+          handleAddInput();
+        }}
         placeholder="Name of Exercise"
         value={movement.movement}
       >
@@ -35,6 +40,10 @@ function FormEntry({
         onChange={(e) => {
           handleChangeTime(movementList, index, Number(e.target.value));
         }}
+        onKeyPress={(e) => {
+          e.preventDefault(); // prevent Enter from removing field
+          handleAddInput();
+        }}
         placeholder="# sec"
         value={movement.time}
       >
@@ -44,7 +53,6 @@ function FormEntry({
           e.preventDefault();
           handleRemoveInput(movementList, index);
         }}
-        onKeyPress={(e) => {/* do nothing, originally Enter key removes this button */}}
         className="remove-button">
         X
     </button>
@@ -65,6 +73,7 @@ FormEntry.propTypes = {
   index: PT.number.isRequired,
   handleChangeMovement: PT.func.isRequired, 
   handleChangeTime: PT.func.isRequired, 
+  handleAddInput: PT.func.isRequired, 
   handleRemoveInput: PT.func.isRequired, 
 }
 

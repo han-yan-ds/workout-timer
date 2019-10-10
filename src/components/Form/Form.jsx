@@ -116,6 +116,7 @@ function Form({
               index={index}
               handleChangeMovement={handleChangeMovement}
               handleChangeTime={handleChangeTime}
+              handleAddInput={() => handleAddInput(movementList)}
               handleRemoveInput={handleRemoveInput}
             />
           );
