@@ -64,6 +64,10 @@ button {
   display: none;
 }
 
+#form-view > h3 {
+  color: orange;
+}
+
 #timer-running {
   color: limegreen;
 }
