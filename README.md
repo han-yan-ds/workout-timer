@@ -28,7 +28,7 @@ There are 2 screens to this app:  a Form screen and a Timer screen
 
 ## Form Screen:
 
-![Form Screen][/src/formview.png]
+![Form Screen](/src/images/formview.png)
 
 Here you can customize you workout.  You can:
 
@@ -44,7 +44,7 @@ In order to start your workout timer after setting up your workout, hit the STAR
 
 ## Timer Screen:
 
-![Timer Screen][/src/timerview.png]
+![Timer Screen](/src/images/timerview.png)
 
 Here you can Start and Pause your workout.
 
