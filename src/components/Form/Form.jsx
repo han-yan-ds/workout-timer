@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
-import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, 
+import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
+import moment from 'moment';
 
 function removeEmptyMovementEntries(movementList) {
   return movementList.filter((movement) => {
@@ -41,12 +42,21 @@ function generateFinalWorkout(movementList, numRounds, restTime = 0) {
   return result;
 }
 
+function estimateTotalTime(movementList, numRounds, restTime = 0) {
+  let finalWorkout = generateFinalWorkout(movementList, numRounds, restTime);
+  let numSeconds = finalWorkout.reduce((accum, part) => {
+    return accum + part.time;
+  }, 0);
+  return moment.utc(moment(numSeconds * 1000).diff(moment(0))).format('HH:mm:ss');
+}
+
 function mapStateToProps(state) {
-  const { movementList, numRounds, restTime, isTimerView } = state;
+  const { movementList, numRounds, restTime, totalTimeEstimate, isTimerView } = state;
   return {
     movementList,
     numRounds,
     restTime,
+    totalTimeEstimate,
     isTimerView,
   }
 }
@@ -73,6 +83,9 @@ function mapDispatchToProps(dispatch) {
     handleChangeRestTime: (restTime) => {
       dispatch(setRestTime(restTime));
     },
+    handleUpdateTimeEstimate: (movementList, numRounds, restTime) => {
+      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
+    },
     handleAddInput: (movementList) => {
       let newMovementList = movementList.slice();
       newMovementList.push({ movement: '', time: 20 });
@@ -96,17 +109,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 function Form({
-  movementList, numRounds, restTime, isTimerView,
+  movementList, numRounds, restTime, totalTimeEstimate, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleChangeRestTime, handleAddInput, handleRemoveInput, switchToTimerView, 
-  highlightInvalidForms, unHighlightInvalidForms,
+  handleChangeRestTime, handleUpdateTimeEstimate, handleAddInput, handleRemoveInput, 
+  switchToTimerView, highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
   return (
     <div id="form-view" className={hideClass}>
-      <p>
-        CREATE WORKOUT:
-      </p>
+      <h3>
+        CREATE WORKOUT
+      </h3>
       <form>
         {movementList.map((movement, index) => {
           return (
@@ -118,6 +131,7 @@ function Form({
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
               handleRemoveInput={handleRemoveInput}
+              handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)}
             />
           );
         })}
@@ -127,6 +141,7 @@ function Form({
           onClick={(e) => {
           e.preventDefault();
           handleAddInput(movementList);
+          handleUpdateTimeEstimate(movementList, numRounds, restTime);
         }}>Add</button>
 
         <br /><br /><br />
@@ -138,6 +153,7 @@ function Form({
           onChange={(e) => {
             e.preventDefault();
             handleChangeRestTime(Number(e.target.value));
+            handleUpdateTimeEstimate(movementList, numRounds, Number(e.target.value));
           }}
           className="input-field-number"
           value={restTime}>
@@ -151,6 +167,7 @@ function Form({
           onChange={(e) => {
             e.preventDefault();
             handleChangeNumRounds(Number(e.target.value));
+            handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
           }}
           className="input-field-number"
           value={numRounds}>
@@ -171,6 +188,10 @@ function Form({
           START WORKOUT
         </button>
         {/* END START-WORKOUT SECTION */}
+        <br /><br />
+        <p id="total-workout-time">
+          Total Time:&nbsp;&nbsp;<span>{totalTimeEstimate}</span>
+        </p>
       </form>
     </div>
   );

@@ -64,6 +64,19 @@ button {
   display: none;
 }
 
+#form-view > h3 {
+  color: orange;
+}
+
+#total-workout-time {
+  font-size: 0.75em;
+  color: gray;
+}
+
+#total-workout-time > span {
+  color: rgb(207, 207, 207);
+}
+
 #timer-running {
   color: limegreen;
 }

@@ -28,6 +28,13 @@ function setRestTime(restTime = 10) {
   }
 }
 
+function updateTimeEstimate(totalTimeEstimate) {
+  return {
+    type: 'UPDATE_TOTAL_TIME_ESTIMATE',
+    totalTimeEstimate,
+  }
+}
+
 function changeMovementIndex(movementIndex = 0) {
   return {
     type: 'CHANGE_MOVEMENT_INDEX',
@@ -64,6 +71,7 @@ export {
   setWorkout,
   setNumRounds,
   setRestTime,
+  updateTimeEstimate,
   changeMovementIndex,
   switchToForm,
   switchToTimer,
