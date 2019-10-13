@@ -5,6 +5,7 @@ import FormEntry from './FormEntry.jsx';
 import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
+import moment from 'moment';
 
 function removeEmptyMovementEntries(movementList) {
   return movementList.filter((movement) => {
@@ -46,7 +47,7 @@ function estimateTotalTime(movementList, numRounds, restTime = 0) {
   let numSeconds = finalWorkout.reduce((accum, part) => {
     return accum + part.time;
   }, 0);
-  return String(numSeconds);
+  return moment.utc(moment(numSeconds * 1000).diff(moment(0))).format('HH:mm:ss');
 }
 
 function mapStateToProps(state) {
