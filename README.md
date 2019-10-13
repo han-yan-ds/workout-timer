@@ -8,7 +8,7 @@ Create your own High Intensity Interval Training Workout here!!  Visit http://ww
 
 * Clone it to your computer
 
-### $ git clone <repo URL>
+### `$ git clone <repo URL>`
 
 * Install npm (Node package manager) on your computer
 
@@ -52,9 +52,6 @@ You can also skip to the next exercise, or return to the previous exercise.
 
 If you return to the Form, your timer will NOT be reset.  
 
-## Future Releases:
-
-Be on the lookout for a total time estimator on the Form screen
 
 ## Authors
 
@@ -66,7 +63,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Hack Reactor for giving me the opportunity to create an app of my own choosing for Minimum Viable Product day
-* Inspiration
-* etc
+* The creators of React and Redux
+* Anyone who uses this app:  I hope you enjoy it!
