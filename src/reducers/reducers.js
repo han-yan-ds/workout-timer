@@ -36,6 +36,15 @@ function restTime(rest = 10, action) {
   }
 }
 
+function totalTimeEstimate(timeStr = '00:00:00', action) {
+  switch (action.type) {
+    case 'UPDATE_TOTAL_TIME_ESTIMATE':
+      return action.totalTimeEstimate;
+    default:
+      return timeStr;
+  }
+}
+
 function currentMovementIndex(movementIndex = 0, action) {
   switch (action.type) {
     case 'CHANGE_MOVEMENT_INDEX':
@@ -72,6 +81,7 @@ export {
   finalWorkout,
   numRounds,
   restTime,
+  totalTimeEstimate,
   currentMovementIndex,
   isTimerView,
   highlightInvalidForms,
