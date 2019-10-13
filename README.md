@@ -28,6 +28,8 @@ There are 2 screens to this app:  a Form screen and a Timer screen
 
 ## Form Screen:
 
+![Form Screen][/src/formview.png]
+
 Here you can customize you workout.  You can:
 
 * Enter your exercise list for each round (and time for each exercise IN SECONDS)
@@ -42,11 +44,17 @@ In order to start your workout timer after setting up your workout, hit the STAR
 
 ## Timer Screen:
 
+![Timer Screen][/src/timerview.png]
+
 Here you can Start and Pause your workout.
 
 You can also skip to the next exercise, or return to the previous exercise.
 
 If you return to the Form, your timer will NOT be reset.  
+
+## Future Releases:
+
+Be on the lookout for a total time estimator on the Form screen
 
 ## Authors
 
