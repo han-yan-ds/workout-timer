@@ -82,3 +82,19 @@
 /WebVersion/npm-debug.log*
 /WebVersion/yarn-debug.log*
 /WebVersion/yarn-error.log*
+
+
+/MobileVersion/node_modules/**/*
+/MobileVersion/.expo/*
+/MobileVersion/npm-debug.*
+/MobileVersion/*.jks
+/MobileVersion/*.p8
+/MobileVersion/*.p12
+/MobileVersion/*.key
+/MobileVersion/*.mobileprovision
+/MobileVersion/*.orig.*
+/MobileVersion/web-build/
+/MobileVersion/web-report/
+
+# macOS
+/MobileVersion/.DS_Store
