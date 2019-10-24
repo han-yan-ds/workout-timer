@@ -4,10 +4,12 @@ import {
   View
 } from 'react-native';
 
+import styles from '../styles/screenStyles';
+
 function FormScreen() {
   return (
-    <View>
-      <Text>
+    <View style={styles.screenContainer}>
+      <Text style={styles.screenText}>
         This is the Form Screen
       </Text>
     </View>
