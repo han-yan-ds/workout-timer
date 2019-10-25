@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import PT from 'prop-types';
 
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
+
 const beepTick = new Audio('./sounds/beep-02.mp3');
 const beepTickFinish = new Audio('./sounds/beep-01a.mp3');
 const flickerTimeLeft = 5;
@@ -106,23 +111,23 @@ class Timer extends Component {
         <button
           className={prevClass}
           onClick={this.prevSection.bind(this, false)}>
-          <i className="material-icons">skip_previous</i>
+            <SkipPreviousIcon />
         </button>
         <button 
           className="display-button"
           onClick={this.startTimer.bind(this)}>
-          <i className="material-icons">play_arrow</i>
+            <PlayArrowIcon />
         </button>
         <button 
           className="display-button"
           onClick={this.pauseTimer.bind(this)}>
-          <i className="material-icons">pause</i>
+            <PauseIcon />
         </button>
         {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
         <button
           className={nextClass}
           onClick={this.nextSection.bind(this, false)}>
-            <i className="material-icons">skip_next</i>
+            <SkipNextIcon />
           </button>
         <br/><br/>
         <p>Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
