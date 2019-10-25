@@ -34,6 +34,7 @@
 
 # Dependency directories
 /MobileVersion/node_modules/
+/MobileVersion/package-lock.json
 /MobileVersion/jspm_packages/
 
 # TypeScript v1 declaration files
@@ -119,6 +120,7 @@
 
 # Dependency directories
 /WebVersion/node_modules/
+/WebVersion/package-lock.json
 /WebVersion/jspm_packages/
 
 # TypeScript v1 declaration files
