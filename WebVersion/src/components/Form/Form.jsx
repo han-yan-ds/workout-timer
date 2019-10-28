@@ -142,7 +142,9 @@ function Form({
           e.preventDefault();
           handleAddInput(movementList);
           handleUpdateTimeEstimate(movementList, numRounds, restTime);
-        }}>Add</button>
+        }}
+          id='add-exercise-button'
+        >Add</button>
 
         <br /><br /><br />
 
@@ -184,7 +186,9 @@ function Form({
           } else {
             highlightInvalidForms();
           }
-        }}>
+        }}
+          id='start-workout-button'
+        >
           START WORKOUT
         </button>
         {/* END START-WORKOUT SECTION */}
