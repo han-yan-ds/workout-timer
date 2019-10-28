@@ -172,6 +172,7 @@ function Form({
             handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
           }}
           className="input-field-number"
+          id="num-rounds-input"
           value={numRounds}>
         </input>
         {/* END NUM ROUNDS INPUT SECTION */}

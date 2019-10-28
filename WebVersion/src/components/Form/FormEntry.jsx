@@ -21,7 +21,7 @@ function FormEntry({
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
   let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
   return (
-    <React.Fragment>
+    <div className='each-exercise-entry'>
       <input type="text"
         className={`input-field-movement ${alertInputMovement}`}
         onChange={(e) => {
@@ -63,9 +63,9 @@ function FormEntry({
         }}
         className="remove-button">
         X
-    </button>
+      </button>
       <br />
-    </React.Fragment>
+    </div>
   );
 }
 
