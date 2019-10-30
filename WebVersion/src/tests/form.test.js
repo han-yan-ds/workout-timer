@@ -20,7 +20,7 @@ afterAll(() => {
   formWrapper.unmount();
 });
 
-describe('Form Rendering', () => {
+describe('Form Functionality', () => {
   it('should render form object', () => {
     expect(formWrapper.exists('#form-view')).toBeTruthy();
   });
@@ -86,7 +86,4 @@ describe('Updating total time', () => {
     expect(totalTimeDisplay.text()).toEqual('00:02:50');
   });
   // at this point, it's 3 rounds, 20s Pushups, 20s Squats, 10s rest
-  // describe('Generating Workout for Timer', () => {
-
-  // });
 });
