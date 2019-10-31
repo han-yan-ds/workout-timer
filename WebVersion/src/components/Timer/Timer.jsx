@@ -109,28 +109,32 @@ class Timer extends Component {
         <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
 
         <button
+          id="prev-button"
           className={prevClass}
           onClick={this.prevSection.bind(this, false)}>
             <SkipPreviousIcon />
         </button>
         <button 
+          id="play-button"
           className="display-button"
           onClick={this.startTimer.bind(this)}>
             <PlayArrowIcon />
         </button>
         <button 
+          id="pause-button"
           className="display-button"
           onClick={this.pauseTimer.bind(this)}>
             <PauseIcon />
         </button>
         {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
         <button
+          id="next-button"
           className={nextClass}
           onClick={this.nextSection.bind(this, false)}>
             <SkipNextIcon />
           </button>
         <br/><br/>
-        <p>Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
+        <p id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
         <p>{this.props.nextUp}</p>
       </div>
     );
