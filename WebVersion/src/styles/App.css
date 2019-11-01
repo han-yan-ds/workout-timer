@@ -66,6 +66,11 @@ button {
   display: none;
 }
 
+.translucent {
+  display: fixed;
+  opacity: 70%;
+}
+
 #form-view > h3 {
   color: orange;
 }
