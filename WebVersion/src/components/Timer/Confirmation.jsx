@@ -36,4 +36,11 @@ function Confirmation ({className, resetTimer, goToFirstMovement, exitConfirmati
   );
 }
 
+Confirmation.propTypes = {
+  className: PT.string.isRequired,
+  resetTimer: PT.func.isRequired,
+  goToFirstMovement: PT.func.isRequired,
+  exitConfirmation: PT.func.isRequired,
+}
+
 export default connect(null, mapDispatchToProps)(Confirmation);
