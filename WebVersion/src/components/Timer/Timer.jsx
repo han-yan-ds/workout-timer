@@ -123,6 +123,7 @@ class Timer extends Component {
         />
 
         <div id="timer-area" className={isAlmostDone}>
+
           <h3>{this.props.movement}</h3>
           <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
 
