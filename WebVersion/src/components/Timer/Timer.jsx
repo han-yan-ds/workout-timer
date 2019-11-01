@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import PT from 'prop-types';
 
+import Confirmation from './Confirmation.jsx';
+
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
+import RestartIcon from '@material-ui/icons/Refresh';
 
 const beepTick = new Audio('./sounds/beep-02.mp3');
 const beepTickFinish = new Audio('./sounds/beep-01a.mp3');
@@ -21,6 +24,7 @@ class Timer extends Component {
       startingEpoch: 0, // 0 is meaningless placeholder here
       isTicking: false,
       prevTimeLeft: 0, // 0 is meaningless placeholder here
+      showConfirmationOverlay: false,
     }
   }
 
@@ -98,45 +102,73 @@ class Timer extends Component {
     }
   }
 
+  toggleConfirmationOverlay() {
+    this.setState({
+      showConfirmationOverlay: !this.state.showConfirmationOverlay,
+    });
+  }
+
   render() {
     let isTickingCSS = (this.state.isTicking) ? 'timer-running' : 'timer-paused';
     let prevClass = (this.props.hasPrev) ? 'display-button' : 'hidden-button';
     let nextClass = (this.props.hasNext) ? 'display-button' : 'hidden-button';
     let isAlmostDone = (this.state.timerLeft < flickerTimeLeft && this.state.isTicking) ? 'flicker' : 'no-flicker';
+    let confirmationOverlayClass = (this.state.showConfirmationOverlay) ? 'translucent' : 'hide';
     return (
-      <div id="timer-area" className={isAlmostDone}>
-        <h3>{this.props.movement}</h3>
-        <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
+      <React.Fragment>
+        <Confirmation 
+          resetTimer={this.resetTimer.bind(this)}
+          className={confirmationOverlayClass}
+          exitConfirmation={this.toggleConfirmationOverlay.bind(this)}
+        />
 
-        <button
-          id="prev-button"
-          className={prevClass}
-          onClick={this.prevSection.bind(this, false)}>
-            <SkipPreviousIcon />
-        </button>
-        <button 
-          id="play-button"
-          className="display-button"
-          onClick={this.startTimer.bind(this)}>
-            <PlayArrowIcon />
-        </button>
-        <button 
-          id="pause-button"
-          className="display-button"
-          onClick={this.pauseTimer.bind(this)}>
-            <PauseIcon />
-        </button>
-        {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
-        <button
-          id="next-button"
-          className={nextClass}
-          onClick={this.nextSection.bind(this, false)}>
-            <SkipNextIcon />
+        <div id="timer-area" className={isAlmostDone}>
+
+          <h3>{this.props.movement}</h3>
+          <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
+
+          <button
+            id="prev-button"
+            className={prevClass}
+            onClick={this.prevSection.bind(this, false)}>
+              <SkipPreviousIcon />
           </button>
-        <br/><br/>
-        <p id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
-        <p>{this.props.nextUp}</p>
-      </div>
+          {/* Begin Restart Button */}
+          <button
+            id="restart-button"
+            className="display-button"
+            onClick={() => {
+              this.toggleConfirmationOverlay();
+              this.pauseTimer();
+            }}
+          >
+            <RestartIcon />
+          </button>
+          {/* End Restart Button */}
+          <button 
+            id="play-button"
+            className="display-button"
+            onClick={this.startTimer.bind(this)}>
+              <PlayArrowIcon />
+          </button>
+          <button 
+            id="pause-button"
+            className="display-button"
+            onClick={this.pauseTimer.bind(this)}>
+              <PauseIcon />
+          </button>
+          {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
+          <button
+            id="next-button"
+            className={nextClass}
+            onClick={this.nextSection.bind(this, false)}>
+              <SkipNextIcon />
+          </button>
+          <br/><br/>
+          <p id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
+          <p>{this.props.nextUp}</p>
+        </div>
+      </React.Fragment>
     );
   }
 }
