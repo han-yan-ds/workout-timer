@@ -13,20 +13,24 @@ function Confirmation ({className, resetTimer, goToFirstMovement, exitConfirmati
   return (
     <div id="confirmation-overlay" className={className}>
       <p>
-        Are You Sure You Want To Restart The Entire Workout?
+        Sure You Want To Restart The Entire Workout?
       </p>
-      
+
       <div id="confirmation-overlay-button-section">
-        <button className="overlay-button"
+        <button 
+          id="confirm-restart-button"
+          className="overlay-button"
           onClick={() => {
             resetTimer();
             goToFirstMovement();
             exitConfirmation();
           }}
-        >YES</button>
-        <button className="overlay-button"
+        >RESTART</button>
+        <button 
+          id="decline-restart-button"
+          className="overlay-button"
           onClick={exitConfirmation}
-        >NO</button>
+        >CONTINUE</button>
       </div>
     </div>
   );

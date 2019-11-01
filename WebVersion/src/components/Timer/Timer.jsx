@@ -156,7 +156,10 @@ class Timer extends Component {
           <button
             id="restart-button"
             className="display-button"
-            onClick={this.toggleConfirmationOverlay.bind(this)}
+            onClick={() => {
+              this.toggleConfirmationOverlay();
+              this.pauseTimer();
+            }}
           >
             <RestartIcon />
           </button>
