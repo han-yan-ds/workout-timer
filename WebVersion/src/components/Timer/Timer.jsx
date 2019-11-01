@@ -133,6 +133,18 @@ class Timer extends Component {
             onClick={this.prevSection.bind(this, false)}>
               <SkipPreviousIcon />
           </button>
+          {/* Begin Restart Button */}
+          <button
+            id="restart-button"
+            className="display-button"
+            onClick={() => {
+              this.toggleConfirmationOverlay();
+              this.pauseTimer();
+            }}
+          >
+            <RestartIcon />
+          </button>
+          {/* End Restart Button */}
           <button 
             id="play-button"
             className="display-button"
@@ -152,18 +164,6 @@ class Timer extends Component {
             onClick={this.nextSection.bind(this, false)}>
               <SkipNextIcon />
           </button>
-          {/* Begin Restart Button */}
-          <button
-            id="restart-button"
-            className="display-button"
-            onClick={() => {
-              this.toggleConfirmationOverlay();
-              this.pauseTimer();
-            }}
-          >
-            <RestartIcon />
-          </button>
-          {/* End Restart Button */}
           <br/><br/>
           <p id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
           <p>{this.props.nextUp}</p>
