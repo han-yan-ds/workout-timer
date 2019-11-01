@@ -21,7 +21,16 @@ afterAll(() => {
 });
 
 describe('App Behavior', () => {
-  it('should generate the correct finalWorkout given what\'s entered on the form', () => {});
+  it('should generate the correct finalWorkout given what\'s entered on the form', () => {
+    const addExerciseButton = appWrapper.find('#add-exercise-button');
+    addExerciseButton.simulate('click');
+    addExerciseButton.simulate('click');
+    appWrapper.find('.each-exercise-entry').at(0).find('.input-field-movement').simulate('change', {target: {value: 'Squats'}});
+    appWrapper.find('.each-exercise-entry').at(1).find('.input-field-movement').simulate('change', {target: {value: 'Pullups'}});
+    appWrapper.find('.each-exercise-entry').at(2).find('.input-field-movement').simulate('change', {target: {value: 'Pushups'}});
+    appWrapper.find('#start-workout-button').simulate('click');
+    // console.log(appWrapper.find('#timer-view').children());
+  });
   it('should properly move to next/previous exercise', () => {});
   it('should render 00:00, WAIT a second, THEN move onto the next exercise', () => {});
   it('should pause automatically when moving onto previous and next', () => {});
