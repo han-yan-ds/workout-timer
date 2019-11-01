@@ -12,16 +12,22 @@ function mapDispatchToProps (dispatch) {
 function Confirmation ({className, resetTimer, goToFirstMovement, exitConfirmation}) {
   return (
     <div id="confirmation-overlay" className={className}>
-      Are You Sure You Want To Restart The Entire Workout?
-      {className}
-      {/*NOTES
-        Yes button calls goToFirstMovement()
-        Yes button ALSO calls resetTimer()... which is passed as prop from Parent (Timer)
-
-        BOTH buttons remove this overlay (exitConfirmation())
-      */}
-      <div>YES</div>
-      <div>NO</div>
+      <p>
+        Are You Sure You Want To Restart The Entire Workout?
+      </p>
+      
+      <div id="confirmation-overlay-button-section">
+        <button className="overlay-button"
+          onClick={() => {
+            resetTimer();
+            goToFirstMovement();
+            exitConfirmation();
+          }}
+        >YES</button>
+        <button className="overlay-button"
+          onClick={exitConfirmation}
+        >NO</button>
+      </div>
     </div>
   );
 }

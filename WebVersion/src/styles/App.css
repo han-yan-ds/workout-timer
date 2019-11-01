@@ -78,6 +78,18 @@ button {
   z-index: 2;
 }
 
+#confirmation-overlay-button-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.overlay-button {
+  display: inline-block;
+  max-width: 35%;
+  background-color: red;
+}
+
 #form-view > h3 {
   color: orange;
 }
