@@ -92,9 +92,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(setMovementList(newMovementList));
     },
     handleRemoveInput: (movementList, index) => {
-      let newMovementList = movementList.slice();
-      newMovementList.splice(index, 1);
-      dispatch(setMovementList(newMovementList));
+      if (movementList.length > 1) {
+        let newMovementList = movementList.slice();
+        newMovementList.splice(index, 1);
+        dispatch(setMovementList(newMovementList));
+      }
     },
     switchToTimerView: () => {
       dispatch(switchToTimer());
