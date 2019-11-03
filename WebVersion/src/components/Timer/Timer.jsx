@@ -112,6 +112,8 @@ class Timer extends Component {
     let isTickingCSS = (this.state.isTicking) ? 'timer-running' : 'timer-paused';
     let prevClass = (this.props.hasPrev) ? 'display-button' : 'hidden-button';
     let nextClass = (this.props.hasNext) ? 'display-button' : 'hidden-button';
+    let restartClass = (!this.state.isTicking) ? 'display-button' : 'hide';
+    let pauseClass = (this.state.isTicking) ? 'display-button' : 'hide';
     let isAlmostDone = (this.state.timerLeft < flickerTimeLeft && this.state.isTicking) ? 'flicker' : 'no-flicker';
     let confirmationOverlayClass = (this.state.showConfirmationOverlay) ? 'translucent' : 'hide';
     return (
@@ -133,27 +135,27 @@ class Timer extends Component {
             onClick={this.prevSection.bind(this, false)}>
               <SkipPreviousIcon />
           </button>
-          {/* Begin Restart Button */}
-          <button
-            id="restart-button"
-            className="display-button"
-            onClick={() => {
-              this.toggleConfirmationOverlay();
-              this.pauseTimer();
-            }}
-          >
-            <RestartIcon />
-          </button>
-          {/* End Restart Button */}
           <button 
             id="play-button"
             className="display-button"
             onClick={this.startTimer.bind(this)}>
               <PlayArrowIcon />
           </button>
+          {/* Begin Restart Button */}
+          <button
+            id="restart-button"
+            className={restartClass}
+            onClick={() => {
+              this.toggleConfirmationOverlay();
+              // this.pauseTimer();
+            }}
+          >
+            <RestartIcon />
+          </button>
+          {/* End Restart Button */}
           <button 
             id="pause-button"
-            className="display-button"
+            className={pauseClass}
             onClick={this.pauseTimer.bind(this)}>
               <PauseIcon />
           </button>
