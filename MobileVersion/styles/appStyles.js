@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   appContainer: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     // width: '100%',
   },
 });
