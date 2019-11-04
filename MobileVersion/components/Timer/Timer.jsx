@@ -10,8 +10,9 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import RestartIcon from '@material-ui/icons/Refresh';
 
-const beepTick = new Audio('./sounds/beep-02.mp3');
-const beepTickFinish = new Audio('./sounds/beep-01a.mp3');
+import { Audio } from 'expo-av';
+const beepTick = new Audio.Sound();
+const beepTickFinish = new Audio.Sound();
 const flickerTimeLeft = 5;
 const beepTimeLeft = flickerTimeLeft;
 
@@ -26,6 +27,11 @@ class Timer extends Component {
       prevTimeLeft: 0, // 0 is meaningless placeholder here
       showConfirmationOverlay: false,
     }
+  }
+
+  async componentDidMount() {
+    await beepTick.loadAsync(require('../../sounds/beep-02.mp3'));
+    await beepTickFinish.loadAsync(require('../../sounds/beep-01a.mp3'));
   }
 
   componentDidUpdate(prevProps) {
@@ -54,10 +60,10 @@ class Timer extends Component {
           }
         } else {
           if (updatedTimeLeft === 0) {
-            beepTickFinish.play();
+            beepTickFinish.playAsync();
           }
           else if (updatedTimeLeft < beepTimeLeft && updatedTimeLeft !== this.state.prevTimeLeft) {
-            beepTick.play();
+            beepTick.playAsync();
           }
           this.setState({
             timerLeft: updatedTimeLeft,
