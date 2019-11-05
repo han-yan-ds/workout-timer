@@ -8,4 +8,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     // width: '100%',
   },
+  hide: {
+    display: 'none',
+  },
 });
