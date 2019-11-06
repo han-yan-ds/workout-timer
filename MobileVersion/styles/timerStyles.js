@@ -3,8 +3,18 @@ import { vmax } from 'react-native-expo-viewport-units';
 import * as appStyles from './appStyles';
 
 export default StyleSheet.create({
-  timerArea: {
+  timerMasterContainer: {
     position: 'relative',
+  },
+  timerSubArea: {
+    paddingVertical: vmax(4),
+  },
+  timerInfoText: {
+    fontSize: '1.5em',
+    paddingBottom: vmax(4),
+  },
+  timerExerciseText: {
+    fontSize: '2.5em',
   },
   flickerTimer: {
     color: 'pink',// PLACEHOLDER
