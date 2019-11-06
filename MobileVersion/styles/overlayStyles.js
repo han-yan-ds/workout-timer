@@ -7,7 +7,7 @@ export default StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
     height: vh(100),
-    width: vw(100),
+    maxWidth: vw(100),
   },
   overlayButtonContainer: {
     display: 'flex',
