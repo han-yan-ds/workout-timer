@@ -141,44 +141,55 @@ class Timer extends Component {
           exitConfirmation={this.toggleConfirmationOverlay.bind(this)}
         />
 
-        <View id="timer-area" style={isAlmostDone}>
+        <View id="timer-area">
 
           <Text>{this.props.movement}</Text>
-          <Text style={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
+          <Text style={[timerStyles.timerTimeText, isTickingCSS, isAlmostDone]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
           
           <View style={timerStyles.buttonContainer}>
             <TouchableOpacity
               id="prev-button"
-              style={timerStyles.button, prevButtonStyle}
+              style={[timerStyles.button, prevButtonStyle]}
               onPress={this.prevSection.bind(this, false)}>
+              <Text style={timerStyles.buttonIcon}>
                 <SkipPreviousIcon />
+              </Text>
             </TouchableOpacity>
+
             <TouchableOpacity 
               id="play-button"
-              style={timerStyles.button, timerStyles.displayButton}
+              style={[timerStyles.button, timerStyles.displayButton]}
               onPress={this.startTimer.bind(this)}>
+              <Text style={timerStyles.buttonIcon}>
                 <PlayArrowIcon />
+              </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               id="restart-button"
-              style={timerStyles.button, restartButtonStyle}
-              onPress={() => {
-                this.toggleConfirmationOverlay();
-              }}
-            >
-              <RestartIcon />
+              style={[timerStyles.button, restartButtonStyle]}
+              onPress={this.toggleConfirmationOverlay.bind(this)}>
+              <Text style={timerStyles.buttonIcon}>
+                <RestartIcon />
+              </Text>
             </TouchableOpacity>
+
             <TouchableOpacity 
               id="pause-button"
-              style={timerStyles.button, pauseButtonStyle}
+              style={[timerStyles.button, pauseButtonStyle]}
               onPress={this.pauseTimer.bind(this)}>
+              <Text style={timerStyles.buttonIcon}>
                 <PauseIcon />
+              </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               id="next-button"
-              style={timerStyles.button, nextButtonStyle}
+              style={[timerStyles.button, nextButtonStyle]}
               onPress={this.nextSection.bind(this, false)}>
+              <Text style={timerStyles.buttonIcon}>
                 <SkipNextIcon />
+              </Text>
             </TouchableOpacity>
           </View>
           
