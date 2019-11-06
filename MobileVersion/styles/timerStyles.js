@@ -39,7 +39,7 @@ export default StyleSheet.create({
     fontWeight: 'bolder',
   },
   timerRunning: {
-    color: 'green',
+    color: 'limegreen',
   },
   timerPaused: {
     color: 'red',
