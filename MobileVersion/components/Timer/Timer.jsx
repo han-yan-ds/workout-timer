@@ -11,6 +11,11 @@ import PauseIcon from '@material-ui/icons/Pause';
 import RestartIcon from '@material-ui/icons/Refresh';
 
 // BEGIN MOBILE-SPECIFIC
+import timerStyles from '../../styles/timerStyles';
+import appStyles from '../../styles/appStyles';
+import overlayStyles from '../../styles/overlayStyles';
+import { View, Text, TouchableOpacity } from 'react-native';
+
 import { Audio } from 'expo-av';
 const beepTick = new Audio.Sound();
 const beepTickFinish = new Audio.Sound();
@@ -121,67 +126,77 @@ class Timer extends Component {
   }
 
   render() {
-    let isTickingCSS = (this.state.isTicking) ? 'timer-running' : 'timer-paused';
-    let prevClass = (this.props.hasPrev) ? 'display-button' : 'hidden-button';
-    let nextClass = (this.props.hasNext) ? 'display-button' : 'hidden-button';
-    let restartClass = (!this.state.isTicking) ? 'display-button' : 'hide';
-    let pauseClass = (this.state.isTicking) ? 'display-button' : 'hide';
-    let isAlmostDone = (this.state.timerLeft < flickerTimeLeft && this.state.isTicking) ? 'flicker' : 'no-flicker';
-    let confirmationOverlayClass = (this.state.showConfirmationOverlay) ? 'translucent' : 'hide';
+    let isTickingCSS = (this.state.isTicking) ? timerStyles.timerRunning : timerStyles.timerPaused;
+    let prevButtonStyle = (this.props.hasPrev) ? timerStyles.displayButton : timerStyles.hiddenButton;
+    let nextButtonStyle = (this.props.hasNext) ? timerStyles.displayButton : timerStyles.hiddenButton;
+    let restartButtonStyle = (!this.state.isTicking) ? timerStyles.displayButton : appStyles.hide;
+    let pauseButtonStyle = (this.state.isTicking) ? timerStyles.displayButton : appStyles.hide;
+    let isAlmostDone = (this.state.timerLeft < flickerTimeLeft && this.state.isTicking) ? timerStyles.flickerTimer : {};
+    let confirmationOverlayStyle = (this.state.showConfirmationOverlay) ? overlayStyles.translucent : appStyles.hide;    
     return (
       <React.Fragment>
         <Confirmation 
           resetTimer={this.resetTimer.bind(this)}
-          className={confirmationOverlayClass}
+          styleName={confirmationOverlayStyle}
           exitConfirmation={this.toggleConfirmationOverlay.bind(this)}
         />
 
-        <div id="timer-area" className={isAlmostDone}>
+        <View id="timer-area" style={timerStyles.timerArea}>
 
-          <h3>{this.props.movement}</h3>
-          <h1 id={isTickingCSS}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</h1>
+          <Text>{this.props.movement}</Text>
+          <Text style={[timerStyles.timerTimeText, isTickingCSS, isAlmostDone]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
+          
+          <View style={timerStyles.buttonContainer}>
+            <TouchableOpacity
+              id="prev-button"
+              style={[timerStyles.button, prevButtonStyle]}
+              onPress={this.prevSection.bind(this, false)}>
+              <Text style={timerStyles.buttonIcon}>
+                <SkipPreviousIcon />
+              </Text>
+            </TouchableOpacity>
 
-          <button
-            id="prev-button"
-            className={prevClass}
-            onClick={this.prevSection.bind(this, false)}>
-              <SkipPreviousIcon />
-          </button>
-          <button 
-            id="play-button"
-            className="display-button"
-            onClick={this.startTimer.bind(this)}>
-              <PlayArrowIcon />
-          </button>
-          {/* Begin Restart Button */}
-          <button
-            id="restart-button"
-            className={restartClass}
-            onClick={() => {
-              this.toggleConfirmationOverlay();
-              // this.pauseTimer();
-            }}
-          >
-            <RestartIcon />
-          </button>
-          {/* End Restart Button */}
-          <button 
-            id="pause-button"
-            className={pauseClass}
-            onClick={this.pauseTimer.bind(this)}>
-              <PauseIcon />
-          </button>
-          {/* <button onClick={this.resetTimer.bind(this)}>Reset</button> */}
-          <button
-            id="next-button"
-            className={nextClass}
-            onClick={this.nextSection.bind(this, false)}>
-              <SkipNextIcon />
-          </button>
-          <br/><br/>
-          <p id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</p>
-          <p>{this.props.nextUp}</p>
-        </div>
+            <TouchableOpacity 
+              id="play-button"
+              style={[timerStyles.button, timerStyles.displayButton]}
+              onPress={this.startTimer.bind(this)}>
+              <Text style={timerStyles.buttonIcon}>
+                <PlayArrowIcon />
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              id="restart-button"
+              style={[timerStyles.button, restartButtonStyle]}
+              onPress={this.toggleConfirmationOverlay.bind(this)}>
+              <Text style={timerStyles.buttonIcon}>
+                <RestartIcon />
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              id="pause-button"
+              style={[timerStyles.button, pauseButtonStyle]}
+              onPress={this.pauseTimer.bind(this)}>
+              <Text style={timerStyles.buttonIcon}>
+                <PauseIcon />
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              id="next-button"
+              style={[timerStyles.button, nextButtonStyle]}
+              onPress={this.nextSection.bind(this, false)}>
+              <Text style={timerStyles.buttonIcon}>
+                <SkipNextIcon />
+              </Text>
+            </TouchableOpacity>
+          </View>
+          
+          {/* <br/><br/> */}
+          <Text id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</Text>
+          <Text>{this.props.nextUp}</Text>
+        </View>
       </React.Fragment>
     );
   }

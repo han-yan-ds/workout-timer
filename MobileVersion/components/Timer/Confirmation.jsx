@@ -3,41 +3,50 @@ import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { changeMovementIndex } from '../../actions/actions';
 
+import overlayStyles from '../../styles/overlayStyles';
+import { View, Text, TouchableOpacity } from 'react-native';
+
 function mapDispatchToProps (dispatch) {
   return {
     goToFirstMovement: () => dispatch(changeMovementIndex(0)),
   }
 }
 
-function Confirmation ({className, resetTimer, goToFirstMovement, exitConfirmation}) {
+function Confirmation ({styleName, resetTimer, goToFirstMovement, exitConfirmation}) {
   return (
-    <div id="confirmation-overlay" className={className}>
-      <p>
+    <View id="confirmation-overlay" style={styleName}>
+      <Text>
         Sure You Want To Restart The Entire Workout?
-      </p>
+      </Text>
 
-      <div id="confirmation-overlay-button-section">
-        <button 
+      <View id="confirmation-overlay-button-section"
+        style={overlayStyles.overlayButtonContainer}
+      >
+        <TouchableOpacity 
           id="confirm-restart-button"
-          className="overlay-button"
-          onClick={() => {
+          style={overlayStyles.overlayButton, overlayStyles.overlayButtonRestart}
+          onPress={() => {
             resetTimer();
             goToFirstMovement();
             exitConfirmation();
           }}
-        >RESTART</button>
-        <button 
+        >
+          <Text>RESTART</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
           id="decline-restart-button"
-          className="overlay-button"
-          onClick={exitConfirmation}
-        >CONTINUE</button>
-      </div>
-    </div>
+          style={overlayStyles.overlayButton, overlayStyles.overlayButtonContinue}
+          onPress={exitConfirmation}
+        >
+          <Text>CONTINUE</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 Confirmation.propTypes = {
-  className: PT.string.isRequired,
+  // styleName: PT.object.isRequired,
   resetTimer: PT.func.isRequired,
   goToFirstMovement: PT.func.isRequired,
   exitConfirmation: PT.func.isRequired,
