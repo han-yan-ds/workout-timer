@@ -15,7 +15,7 @@ function mapDispatchToProps (dispatch) {
 function Confirmation ({styleName, resetTimer, goToFirstMovement, exitConfirmation}) {
   return (
     <View id="confirmation-overlay" style={styleName}>
-      <Text>
+      <Text style={overlayStyles.overlayRestartPrompt}>
         Sure You Want To Restart The Entire Workout?
       </Text>
 
@@ -24,7 +24,7 @@ function Confirmation ({styleName, resetTimer, goToFirstMovement, exitConfirmati
       >
         <TouchableOpacity 
           id="confirm-restart-button"
-          style={overlayStyles.overlayButton, overlayStyles.overlayButtonRestart}
+          style={[overlayStyles.overlayButton, overlayStyles.overlayButtonRestart]}
           onPress={() => {
             resetTimer();
             goToFirstMovement();
@@ -35,7 +35,7 @@ function Confirmation ({styleName, resetTimer, goToFirstMovement, exitConfirmati
         </TouchableOpacity>
         <TouchableOpacity 
           id="decline-restart-button"
-          style={overlayStyles.overlayButton, overlayStyles.overlayButtonContinue}
+          style={[overlayStyles.overlayButton, overlayStyles.overlayButtonContinue]}
           onPress={exitConfirmation}
         >
           <Text>CONTINUE</Text>

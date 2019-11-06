@@ -171,7 +171,7 @@ class Timer extends Component {
               id="restart-button"
               style={[timerStyles.button, restartButtonStyle]}
               onPress={this.toggleConfirmationOverlay.bind(this)}>
-              <Text style={[timerStyles.buttonIcon, {transform: [{scaleX: -1}]}]}>
+              <Text style={[timerStyles.buttonIcon, {transform: [{rotateY: '180deg'}]}]}>
                 <RestartIcon />
               </Text>
             </TouchableOpacity>
