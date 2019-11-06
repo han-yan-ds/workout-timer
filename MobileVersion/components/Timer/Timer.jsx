@@ -141,7 +141,7 @@ class Timer extends Component {
           exitConfirmation={this.toggleConfirmationOverlay.bind(this)}
         />
 
-        <View id="timer-area">
+        <View id="timer-area" style={timerStyles.timerArea}>
 
           <Text>{this.props.movement}</Text>
           <Text style={[timerStyles.timerTimeText, isTickingCSS, isAlmostDone]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>

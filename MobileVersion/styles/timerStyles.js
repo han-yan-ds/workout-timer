@@ -4,7 +4,7 @@ import * as appStyles from './appStyles';
 
 export default StyleSheet.create({
   timerArea: {
-    
+    position: 'relative',
   },
   flickerTimer: {
     color: 'pink',// PLACEHOLDER
