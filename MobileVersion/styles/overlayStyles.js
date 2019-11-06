@@ -3,20 +3,28 @@ import { vh, vw } from 'react-native-expo-viewport-units';
 
 export default StyleSheet.create({
   translucent: {
-    backgroundColor: 'rgba(40,44,52,0.9)',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(40,44,52,0.92)',
     position: 'absolute',
     zIndex: 2,
-    height: vh(100),
-    width: vw(100),
+    height: '100%',
+    maxWidth: '100%',
+  },
+  overlayRestartPrompt: {
+    fontSize: '1.5em',
   },
   overlayButtonContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    paddingTop: vh(6),
   },
   overlayButton: {
-    height: 100,
-    width: 60,
+    minHeight: vh(7.5),
+    minWidth: vw(20),
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 6,
   },
   overlayButtonRestart: {
     backgroundColor: 'red',

@@ -92,9 +92,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(setMovementList(newMovementList));
     },
     handleRemoveInput: (movementList, index) => {
-      let newMovementList = movementList.slice();
-      newMovementList.splice(index, 1);
-      dispatch(setMovementList(newMovementList));
+      if (movementList.length > 1) {
+        let newMovementList = movementList.slice();
+        newMovementList.splice(index, 1);
+        dispatch(setMovementList(newMovementList));
+      }
     },
     switchToTimerView: () => {
       dispatch(switchToTimer());
@@ -142,7 +144,9 @@ function Form({
           e.preventDefault();
           handleAddInput(movementList);
           handleUpdateTimeEstimate(movementList, numRounds, restTime);
-        }}>Add</button>
+        }}
+          id='add-exercise-button'
+        >Add</button>
 
         <br /><br /><br />
 
@@ -170,6 +174,7 @@ function Form({
             handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
           }}
           className="input-field-number"
+          id="num-rounds-input"
           value={numRounds}>
         </input>
         {/* END NUM ROUNDS INPUT SECTION */}
@@ -184,7 +189,9 @@ function Form({
           } else {
             highlightInvalidForms();
           }
-        }}>
+        }}
+          id='start-workout-button'
+        >
           START WORKOUT
         </button>
         {/* END START-WORKOUT SECTION */}

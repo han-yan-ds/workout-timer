@@ -141,12 +141,14 @@ class Timer extends Component {
           exitConfirmation={this.toggleConfirmationOverlay.bind(this)}
         />
 
-        <View id="timer-area" style={timerStyles.timerArea}>
+        <View id="timer-master-container" style={timerStyles.timerMasterContainer}>
 
-          <Text>{this.props.movement}</Text>
-          <Text style={[timerStyles.timerTimeText, isTickingCSS, isAlmostDone]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
+          <View style={timerStyles.timerSubArea}>
+            <Text style={[timerStyles.timerInfoText, timerStyles.timerExerciseText]}>{this.props.movement}</Text>
+            <Text style={[timerStyles.timerTimeText, isTickingCSS, isAlmostDone]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
+          </View>
           
-          <View style={timerStyles.buttonContainer}>
+          <View style={[timerStyles.buttonContainer, timerStyles.timerSubArea]}>
             <TouchableOpacity
               id="prev-button"
               style={[timerStyles.button, prevButtonStyle]}
@@ -169,7 +171,7 @@ class Timer extends Component {
               id="restart-button"
               style={[timerStyles.button, restartButtonStyle]}
               onPress={this.toggleConfirmationOverlay.bind(this)}>
-              <Text style={timerStyles.buttonIcon}>
+              <Text style={[timerStyles.buttonIcon, {transform: [{rotateY: '180deg'}]}]}>
                 <RestartIcon />
               </Text>
             </TouchableOpacity>
@@ -193,9 +195,15 @@ class Timer extends Component {
             </TouchableOpacity>
           </View>
           
-          {/* <br/><br/> */}
-          <Text id="round-step-indicator">Round: {this.props.roundNo + 1}, Step: {this.props.step}</Text>
-          <Text>{this.props.nextUp}</Text>
+          <View style={timerStyles.timerSubArea}>
+            <Text id="round-step-indicator" style={timerStyles.timerInfoText}>
+              Round: {this.props.roundNo + 1}, Step: {this.props.step}
+            </Text>
+            <Text style={timerStyles.timerInfoText}>
+              {this.props.nextUp}
+            </Text>
+          </View>
+
         </View>
       </React.Fragment>
     );
