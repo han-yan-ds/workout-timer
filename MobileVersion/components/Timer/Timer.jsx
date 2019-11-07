@@ -10,7 +10,6 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import RestartIcon from '@material-ui/icons/Refresh';
 
-// BEGIN MOBILE-SPECIFIC
 import timerStyles from '../../styles/timerStyles';
 import appStyles from '../../styles/appStyles';
 import overlayStyles from '../../styles/overlayStyles';
@@ -21,7 +20,6 @@ const beepTick = new Audio.Sound();
 const beepTickFinish = new Audio.Sound();
 const flickerTimeLeft = 5;
 const beepTimeLeft = flickerTimeLeft;
-// END MOBILE-SPECIFIC
 
 class Timer extends Component {
   constructor(props) {
@@ -33,15 +31,14 @@ class Timer extends Component {
       isTicking: false,
       prevTimeLeft: 0, // 0 is meaningless placeholder here
       showConfirmationOverlay: false,
+      timerFadeValue: 1, // this state is used for the timer flicker when time is almost up
     }
   }
 
-  // BEGIN MOBILE-SPECIFIC
   async componentDidMount() {
     await beepTick.loadAsync(require('../../sounds/beep-02.mp3'));
     await beepTickFinish.loadAsync(require('../../sounds/beep-01a.mp3'));
   }
-  // END MOBILE-SPECIFIC
 
   componentDidUpdate(prevProps) {
     if (this.props.time !== prevProps.time) {
@@ -68,17 +65,14 @@ class Timer extends Component {
             this.nextSection();
           }
         } else {
-          // BEGIN MOBILE-SPECIFIC
-          if (updatedTimeLeft === 0) {
-            beepTickFinish.playAsync();
-          }
-          else if (updatedTimeLeft < beepTimeLeft && updatedTimeLeft !== this.state.prevTimeLeft) {
-            beepTick.playAsync();
-          }
-          // END MOBILE-SPECIFIC
+          if (updatedTimeLeft === 0) beepTickFinish.playAsync();
+          else if (updatedTimeLeft < beepTimeLeft && updatedTimeLeft !== this.state.prevTimeLeft) beepTick.playAsync();
           this.setState({
             timerLeft: updatedTimeLeft,
             prevTimeLeft: updatedTimeLeft,
+          });
+          if (updatedTimeLeft < flickerTimeLeft) this.setState({
+            timerFadeValue: (600 - ((moment.now() - this.state.startingEpoch) % 500))/500,
           });
         }
       }, 1);
@@ -131,8 +125,7 @@ class Timer extends Component {
     let nextButtonStyle = (this.props.hasNext) ? timerStyles.displayButton : timerStyles.hiddenButton;
     let restartButtonStyle = (!this.state.isTicking) ? timerStyles.displayButton : appStyles.hide;
     let pauseButtonStyle = (this.state.isTicking) ? timerStyles.displayButton : appStyles.hide;
-    let isAlmostDone = (this.state.timerLeft < flickerTimeLeft && this.state.isTicking) ? timerStyles.flickerTimer : {};
-    let confirmationOverlayStyle = (this.state.showConfirmationOverlay) ? overlayStyles.translucent : appStyles.hide;    
+    let confirmationOverlayStyle = (this.state.showConfirmationOverlay) ? overlayStyles.translucent : appStyles.hide;  
     return (
       <React.Fragment>
         <Confirmation 
@@ -145,7 +138,7 @@ class Timer extends Component {
 
           <View style={timerStyles.timerSubArea}>
             <Text style={[timerStyles.timerInfoText, timerStyles.timerExerciseText]}>{this.props.movement}</Text>
-            <Text style={[timerStyles.timerTimeText, isTickingCSS, isAlmostDone]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
+            <Text style={[timerStyles.timerTimeText, isTickingCSS, {opacity: this.state.timerFadeValue}]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
           </View>
           
           <View style={[timerStyles.buttonContainer, timerStyles.timerSubArea]}>

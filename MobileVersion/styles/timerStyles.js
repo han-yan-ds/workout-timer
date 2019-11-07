@@ -16,9 +16,6 @@ export default StyleSheet.create({
   timerExerciseText: {
     fontSize: '2.5em',
   },
-  flickerTimer: {
-    color: 'pink',// PLACEHOLDER
-  },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
