@@ -1,13 +1,20 @@
 import { StyleSheet } from 'react-native';
-import { vmax } from 'react-native-expo-viewport-units';
+import { vmax, vw } from 'react-native-expo-viewport-units';
 import * as appStyles from './appStyles';
 
 export default StyleSheet.create({
-  timerArea: {
+  timerMasterContainer: {
     position: 'relative',
   },
-  flickerTimer: {
-    color: 'pink',// PLACEHOLDER
+  timerSubArea: {
+    paddingVertical: vmax(4),
+  },
+  timerInfoText: {
+    fontSize: '1.5em',
+    paddingBottom: vmax(4),
+  },
+  timerExerciseText: {
+    fontSize: '2.5em',
   },
   buttonContainer: {
     display: 'flex',
@@ -20,10 +27,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1.25,
+    padding: 0,
   },
   buttonIcon: {
     color: appStyles.BACKGROUNDCOLOR,
-    fontSize: '2.0em',
+    transform: [{scale: 1}],
   },
   displayButton: {
     backgroundColor: 'lightblue',
@@ -39,7 +47,7 @@ export default StyleSheet.create({
     fontWeight: 'bolder',
   },
   timerRunning: {
-    color: 'green',
+    color: 'limegreen',
   },
   timerPaused: {
     color: 'red',
