@@ -7,6 +7,10 @@ import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, 
 import { zeroPad } from '../../util/util';
 import moment from 'moment';
 
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import formStyles from '../../styles/formStyles';
+import AddIcon from '@material-ui/icons/AddCircle';
+
 function removeEmptyMovementEntries(movementList) {
   return movementList.filter((movement) => {
     return (movement.movement !== '' && movement.time > 0);
@@ -117,12 +121,17 @@ function Form({
   switchToTimerView, highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
+
   return (
-    <div id="form-view" className={hideClass}>
-      <h3>
+    <View
+      style={formStyles.formContainer}
+    >
+
+      <Text style={formStyles.header}>
         CREATE WORKOUT
-      </h3>
-      <form>
+      </Text>
+
+      <View>
         {movementList.map((movement, index) => {
           return (
             <FormEntry key={`movement${zeroPad(index, 3)}`}
@@ -135,72 +144,55 @@ function Form({
               handleRemoveInput={handleRemoveInput}
               handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)}
             />
-          );
+          )
         })}
+      </View>
 
-        <button 
-          type="submit"
-          onClick={(e) => {
-          e.preventDefault();
+      <TouchableOpacity
+        style={formStyles.addButton}
+        onPress={(e) => {
+          // e.preventDefault();
           handleAddInput(movementList);
           handleUpdateTimeEstimate(movementList, numRounds, restTime);
         }}
-          id='add-exercise-button'
-        >Add</button>
+      >
+        <Text><AddIcon/></Text>
+      </TouchableOpacity>
 
-        <br /><br /><br />
+      <View style={formStyles.formEntryContainer}>
+        <View >
+          <Text>REST TIME:  </Text>
+          <TextInput
+            keyboardType={"number-pad"}
+            onChangeText={(e) => {
+              // e.preventDefault();
+              handleChangeRestTime(Number(e.target.value));
+              handleUpdateTimeEstimate(movementList, numRounds, Number(e.target.value));
+            }}
+            placeholder={"Rest"}
+            style={[formStyles.formGeneral, formStyles.formRestRounds]}
+          />
+        </View>
+        <View >
+          <Text># ROUNDS:  </Text>
+          <TextInput
+            keyboardType={"number-pad"}
+            onChange={(e) => {
+              // e.preventDefault();
+              handleChangeNumRounds(Number(e.target.value));
+              handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
+            }}
+            placeholder={"# Rounds"}
+            style={[formStyles.formGeneral, formStyles.formRestRounds]}
+          />
+        </View>
+      </View>
 
-        {/* START REST TIME INPUT SECTION */}
-        <span id="rest-time-label">Rest Time:&nbsp;&nbsp;</span>
-        <input type="number"
-          min={0}
-          onChange={(e) => {
-            e.preventDefault();
-            handleChangeRestTime(Number(e.target.value));
-            handleUpdateTimeEstimate(movementList, numRounds, Number(e.target.value));
-          }}
-          className="input-field-number"
-          value={restTime}>
-        </input>
-        {/* END REST TIME INPUT SECTION */}
-          <br/><br/>
-        {/* START NUM ROUNDS INPUT SECTION */}
-        <span id="num-rounds-label">#&nbsp;&nbsp;Rounds:&nbsp;&nbsp;</span>
-        <input type="number"
-          min={1}
-          onChange={(e) => {
-            e.preventDefault();
-            handleChangeNumRounds(Number(e.target.value));
-            handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
-          }}
-          className="input-field-number"
-          id="num-rounds-input"
-          value={numRounds}>
-        </input>
-        {/* END NUM ROUNDS INPUT SECTION */}
-        <br /><br />
-        {/* START START-WORKOUT SECTION */}
-        <button onClick={(e) => {
-          e.preventDefault();
-          if (removeEmptyMovementEntries(movementList).length > 0) {
-            setFullWorkout(movementList, numRounds, restTime);
-            switchToTimerView();
-            unHighlightInvalidForms();
-          } else {
-            highlightInvalidForms();
-          }
-        }}
-          id='start-workout-button'
-        >
-          START WORKOUT
-        </button>
-        {/* END START-WORKOUT SECTION */}
-        <br /><br />
-        <p id="total-workout-time">
-          Total Time:&nbsp;&nbsp;<span>{totalTimeEstimate}</span>
-        </p>
-      </form>
-    </div>
+      <View>
+        <Text>{`Total Time:  ${totalTimeEstimate}`}</Text>
+      </View>
+
+    </View>
   );
 }
 
