@@ -26,11 +26,12 @@ function FormEntry({
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
   let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
   return (
-    <Formik
-      initialValues={{exercise: ''}}
-      onSubmit={values => console.log('Formik onSubmit', values)}
-    >
-      { () => (
+    // <Formik
+    //   initialValues={{exercise: ''}}
+    //   onSubmit={values => console.log('Formik onSubmit', values)}
+    // >
+    <React.Fragment>
+      {/* { () => ( */}
         <View style={formStyles.formEntryContainer}>
 
           <TextInput // this is input for the name of the exercise
@@ -68,8 +69,9 @@ function FormEntry({
           </TouchableOpacity>
 
         </View>
-      ) }
-    </Formik>
+      {/* ) } */}
+    {/* </Formik> */}
+    </React.Fragment>
   );
   // return (
     // <div className='each-exercise-entry'>
