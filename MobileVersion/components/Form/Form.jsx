@@ -149,14 +149,13 @@ function Form({
       </View>
 
       <TouchableOpacity
-        style={formStyles.addButton}
         onPress={(e) => {
           // e.preventDefault();
           handleAddInput(movementList);
           handleUpdateTimeEstimate(movementList, numRounds, restTime);
         }}
       >
-        <Text><AddIcon/></Text>
+        <Text style={formStyles.addButton}><AddIcon/></Text>
       </TouchableOpacity>
 
       <View style={formStyles.formEntryContainer}>

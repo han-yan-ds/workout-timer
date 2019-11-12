@@ -43,7 +43,7 @@ function FormEntry({
             onFocus={(val) => console.log('Focused', val)}
             placeholder={"Exercise"}
             style={[formStyles.formGeneral, formStyles.formExercise]}
-            // values=
+            value={movementList[index].movement}
           />
           
           <TextInput // this is input for the duration of the exercise
@@ -54,11 +54,12 @@ function FormEntry({
             }}
             placeholder={"Time"}
             style={[formStyles.formGeneral, formStyles.formExerciseTime]}
+            value={String(movementList[index].time)}
           />
 
           <TouchableOpacity
             onPress={(e) => {
-              e.preventDefault();
+              // e.preventDefault();
               handleRemoveInput(movementList, index);
               handleUpdateTimeEstimate();
             }}
