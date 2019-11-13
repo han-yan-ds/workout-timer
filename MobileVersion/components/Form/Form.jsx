@@ -145,7 +145,7 @@ function Form({
               handleChangeMovement={handleChangeMovement}
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
-              handleRemoveInput={handleRemoveInput}
+              handleRemoveInput={() => handleRemoveInput(movementList, index, numRounds, restTime)}
             />
           )
         })}
@@ -169,6 +169,7 @@ function Form({
             }}
             placeholder={"Rest"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
+            value={String(restTime)}
           />
         </View>
         <View >
@@ -180,6 +181,7 @@ function Form({
             }}
             placeholder={"# Rounds"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
+            value={String(numRounds)}
           />
         </View>
       </View>
