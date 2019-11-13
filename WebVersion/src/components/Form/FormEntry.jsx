@@ -27,8 +27,7 @@ function FormEntry({
       <input type="text"
         className={`input-field-movement ${alertInputMovement}`}
         onChange={(e) => {
-          handleChangeMovement(movementList, index, e.target.value);
-          handleUpdateTimeEstimate();
+          handleChangeMovement(movementList, index, e.target.value, numRounds, restTime);
         }}
         onKeyPress={(e) => {
           if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
