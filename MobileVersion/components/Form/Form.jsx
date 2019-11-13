@@ -83,8 +83,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(setMovementList(newMovementList));
       dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
-    handleChangeNumRounds: (numRounds) => {
+    handleChangeNumRounds: (numRounds, movementList, restTime) => {
       dispatch(setNumRounds(numRounds));
+      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
     handleChangeRestTime: (restTime) => {
       dispatch(setRestTime(restTime));
@@ -181,9 +182,7 @@ function Form({
           <TextInput
             keyboardType={"number-pad"}
             onChange={(e) => {
-              // e.preventDefault();
-              handleChangeNumRounds(Number(e.target.value));
-              handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
+              handleChangeNumRounds(Number(e.target.value), movementList, restTime);
             }}
             placeholder={"# Rounds"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}

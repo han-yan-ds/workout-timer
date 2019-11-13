@@ -54,7 +54,6 @@ function FormEntry({
 
           <TouchableOpacity
             onPress={(e) => {
-              // e.preventDefault();
               handleRemoveInput(movementList, index);
               handleUpdateTimeEstimate();
             }}
