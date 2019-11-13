@@ -45,8 +45,7 @@ function FormEntry({
           <TextInput // this is input for the duration of the exercise
             keyboardType={"number-pad"}
             onChangeText={(val) => {
-              handleChangeTime(movementList, index, Number(val));
-              handleUpdateTimeEstimate();
+              handleChangeTime(movementList, index, Number(val), numRounds, restTime);
             }}
             placeholder={"Time"}
             style={[formStyles.formGeneral, formStyles.formExerciseTime]}

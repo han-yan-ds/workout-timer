@@ -77,10 +77,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(setMovementList(newMovementList));
       dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
-    handleChangeTime: (movementList, index, time) => {
+    handleChangeTime: (movementList, index, time, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].time = time;
       dispatch(setMovementList(newMovementList));
+      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
     handleChangeNumRounds: (numRounds) => {
       dispatch(setNumRounds(numRounds));
