@@ -11,7 +11,9 @@ function FormEntry({
   highlightInvalidForms,
   movementList, 
   movement, 
-  index, 
+  index,
+  numRounds,
+  restTime, 
   handleChangeMovement, 
   handleChangeTime,
   handleAddInput, 
@@ -58,8 +60,7 @@ function FormEntry({
       <button 
         onClick={(e) => {
           e.preventDefault();
-          handleRemoveInput(movementList, index);
-          handleUpdateTimeEstimate();
+          handleRemoveInput(movementList, index, numRounds, restTime);
         }}
         className="remove-button">
         X

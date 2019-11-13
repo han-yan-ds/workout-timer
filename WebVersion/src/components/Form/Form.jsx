@@ -6,6 +6,7 @@ import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, 
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
 import moment from 'moment';
+import { restTime } from '../../reducers/reducers.js';
 
 function removeEmptyMovementEntries(movementList) {
   return movementList.filter((movement) => {
@@ -91,11 +92,12 @@ function mapDispatchToProps(dispatch) {
       newMovementList.push({ movement: '', time: 20 });
       dispatch(setMovementList(newMovementList));
     },
-    handleRemoveInput: (movementList, index) => {
+    handleRemoveInput: (movementList, index, numRounds, restTime) => {
       if (movementList.length > 1) {
         let newMovementList = movementList.slice();
         newMovementList.splice(index, 1);
         dispatch(setMovementList(newMovementList));
+        dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
       }
     },
     switchToTimerView: () => {
@@ -129,11 +131,13 @@ function Form({
               movementList={movementList}
               movement={movement}
               index={index}
+              numRounds={numRounds}
+              restTime={restTime}
               handleChangeMovement={handleChangeMovement}
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
               handleRemoveInput={handleRemoveInput}
-              handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)}
+              handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)} // REMOVE
             />
           );
         })}
