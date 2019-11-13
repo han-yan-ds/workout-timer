@@ -6,7 +6,6 @@ import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, 
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad } from '../../util/util';
 import moment from 'moment';
-import { restTime } from '../../reducers/reducers.js';
 
 function removeEmptyMovementEntries(movementList) {
   return movementList.filter((movement) => {
@@ -80,13 +79,12 @@ function mapDispatchToProps(dispatch) {
       dispatch(setMovementList(newMovementList));
       dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
-    handleChangeNumRounds: (numRounds) => {
+    handleChangeNumRounds: (numRounds, movementList, restTime) => {
       dispatch(setNumRounds(numRounds));
+      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
-    handleChangeRestTime: (restTime) => {
+    handleChangeRestTime: (restTime, movementList, numRounds) => {
       dispatch(setRestTime(restTime));
-    },
-    handleUpdateTimeEstimate: (movementList, numRounds, restTime) => {
       dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
     handleAddInput: (movementList) => {
@@ -117,7 +115,7 @@ function mapDispatchToProps(dispatch) {
 function Form({
   movementList, numRounds, restTime, totalTimeEstimate, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleChangeRestTime, handleUpdateTimeEstimate, handleAddInput, handleRemoveInput, 
+  handleChangeRestTime, handleAddInput, handleRemoveInput, 
   switchToTimerView, highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
@@ -139,7 +137,6 @@ function Form({
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
               handleRemoveInput={handleRemoveInput}
-              handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)} // REMOVE
             />
           );
         })}
@@ -149,7 +146,6 @@ function Form({
           onClick={(e) => {
           e.preventDefault();
           handleAddInput(movementList);
-          handleUpdateTimeEstimate(movementList, numRounds, restTime);
         }}
           id='add-exercise-button'
         >Add</button>
@@ -162,8 +158,7 @@ function Form({
           min={0}
           onChange={(e) => {
             e.preventDefault();
-            handleChangeRestTime(Number(e.target.value));
-            handleUpdateTimeEstimate(movementList, numRounds, Number(e.target.value));
+            handleChangeRestTime(Number(e.target.value), movementList, numRounds);
           }}
           className="input-field-number"
           value={restTime}>
@@ -176,8 +171,7 @@ function Form({
           min={1}
           onChange={(e) => {
             e.preventDefault();
-            handleChangeNumRounds(Number(e.target.value));
-            handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
+            handleChangeNumRounds(Number(e.target.value), movementList, restTime);
           }}
           className="input-field-number"
           id="num-rounds-input"
