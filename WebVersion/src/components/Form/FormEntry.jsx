@@ -11,12 +11,13 @@ function FormEntry({
   highlightInvalidForms,
   movementList, 
   movement, 
-  index, 
+  index,
+  numRounds,
+  restTime, 
   handleChangeMovement, 
   handleChangeTime,
   handleAddInput, 
   handleRemoveInput,
-  handleUpdateTimeEstimate, 
 }) {
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
   let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
@@ -25,8 +26,7 @@ function FormEntry({
       <input type="text"
         className={`input-field-movement ${alertInputMovement}`}
         onChange={(e) => {
-          handleChangeMovement(movementList, index, e.target.value);
-          handleUpdateTimeEstimate();
+          handleChangeMovement(movementList, index, e.target.value, numRounds, restTime);
         }}
         onKeyPress={(e) => {
           if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
@@ -42,8 +42,7 @@ function FormEntry({
         min={0}
         className={`input-field-number ${alertInputTime}`}
         onChange={(e) => {
-          handleChangeTime(movementList, index, Number(e.target.value));
-          handleUpdateTimeEstimate();
+          handleChangeTime(movementList, index, Number(e.target.value), numRounds, restTime);
         }}
         onKeyPress={(e) => {
           if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
@@ -58,8 +57,7 @@ function FormEntry({
       <button 
         onClick={(e) => {
           e.preventDefault();
-          handleRemoveInput(movementList, index);
-          handleUpdateTimeEstimate();
+          handleRemoveInput(movementList, index, numRounds, restTime);
         }}
         className="remove-button">
         X
@@ -83,7 +81,6 @@ FormEntry.propTypes = {
   handleChangeTime: PT.func.isRequired, 
   handleAddInput: PT.func.isRequired, 
   handleRemoveInput: PT.func.isRequired, 
-  handleUpdateTimeEstimate: PT.func.isRequired,
 }
 
 export default connect(mapStateToProps, null)(FormEntry);
