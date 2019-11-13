@@ -9,7 +9,8 @@ import TimerScreen from '../screens/TimerScreen';
 import FormScreen from '../screens/FormScreen';
 
 const config = Platform.select({
-  web: {headerMode: 'screen'},
+  web: {headerMode: 'none'},
+  // web: {headerMode: 'screen'},
   default: {}
 });
 

@@ -4,13 +4,14 @@ import { changeMovementIndex, switchToForm } from '../../actions/actions';
 import Timer from "./Timer.jsx";
 import PT from 'prop-types';
 
+import {View} from 'react-native';
+
 function mapStateToProps(state) {
   const {finalWorkout, numRounds, currentMovementIndex, isTimerView} = state;
   return {
     finalWorkout,
     numRounds,
     currentMovementIndex,
-    isTimerView,
   }
 }
 
@@ -30,7 +31,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function WorkoutTimer({ 
-  finalWorkout, currentMovementIndex, isTimerView,
+  finalWorkout, currentMovementIndex, 
   movePrev, moveNext, switchToFormView 
 }) {
   let thisMovement = finalWorkout[currentMovementIndex];
@@ -38,9 +39,8 @@ function WorkoutTimer({
   let hasNext = currentMovementIndex !== finalWorkout.length-1;
   let nextMovement = (hasNext) ? finalWorkout[currentMovementIndex+1] : null;
   let nextUp = (hasNext) ? `Next: ${nextMovement.movement} for ${nextMovement.time} seconds` : 'Last Exercise!';
-  let hideClass = (isTimerView) ? 'show' : 'hide';
   return (
-    <div id="timer-view" className={hideClass}>
+    <View id="timer-view">
       <Timer 
         movement={thisMovement.movement} 
         time={thisMovement.time} 
@@ -53,14 +53,7 @@ function WorkoutTimer({
         hasNext={hasNext}
         nextUp={nextUp}
       />
-      <button onClick={() => {
-        // somehow pause the Timer from here
-        switchToFormView();
-      }}
-      >
-        Back To Form
-      </button>
-    </div>
+    </View>
   );
 
 }
@@ -72,7 +65,6 @@ WorkoutTimer.propTypes = {
     roundNo: PT.number.isRequired,
   })).isRequired,
   currentMovementIndex: PT.number.isRequired,
-  isTimerView: PT.bool.isRequired,
   movePrev: PT.func.isRequired, 
   moveNext: PT.func.isRequired, 
   switchToFormView: PT.func.isRequired,
