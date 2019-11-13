@@ -43,8 +43,7 @@ function FormEntry({
         min={0}
         className={`input-field-number ${alertInputTime}`}
         onChange={(e) => {
-          handleChangeTime(movementList, index, Number(e.target.value));
-          handleUpdateTimeEstimate();
+          handleChangeTime(movementList, index, Number(e.target.value), numRounds, restTime);
         }}
         onKeyPress={(e) => {
           if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
