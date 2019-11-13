@@ -18,7 +18,6 @@ function FormEntry({
   handleChangeTime,
   handleAddInput, 
   handleRemoveInput,
-  handleUpdateTimeEstimate, 
 }) {
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
   let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
@@ -82,7 +81,6 @@ FormEntry.propTypes = {
   handleChangeTime: PT.func.isRequired, 
   handleAddInput: PT.func.isRequired, 
   handleRemoveInput: PT.func.isRequired, 
-  handleUpdateTimeEstimate: PT.func.isRequired,
 }
 
 export default connect(mapStateToProps, null)(FormEntry);
