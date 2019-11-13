@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PT from 'prop-types';
-import { Formik } from 'formik';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import formStyles from '../../styles/formStyles';
 
@@ -21,9 +20,7 @@ function FormEntry({
   restTime,
   handleChangeMovement, 
   handleChangeTime,
-  handleAddInput, 
   handleRemoveInput,
-  handleUpdateTimeEstimate, 
 }) {
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
   let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
@@ -55,7 +52,6 @@ function FormEntry({
           <TouchableOpacity
             onPress={(e) => {
               handleRemoveInput(movementList, index);
-              handleUpdateTimeEstimate();
             }}
           >
             <Text style={formStyles.closeButton}>
@@ -81,9 +77,7 @@ FormEntry.propTypes = {
   index: PT.number.isRequired,
   handleChangeMovement: PT.func.isRequired, 
   handleChangeTime: PT.func.isRequired, 
-  handleAddInput: PT.func.isRequired, 
   handleRemoveInput: PT.func.isRequired, 
-  handleUpdateTimeEstimate: PT.func.isRequired,
 }
 
 export default connect(mapStateToProps, null)(FormEntry);

@@ -87,10 +87,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(setNumRounds(numRounds));
       dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
-    handleChangeRestTime: (restTime) => {
+    handleChangeRestTime: (restTime, movementList, numRounds) => {
       dispatch(setRestTime(restTime));
-    },
-    handleUpdateTimeEstimate: (movementList, numRounds, restTime) => {
       dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
     handleAddInput: (movementList) => {
@@ -98,11 +96,12 @@ function mapDispatchToProps(dispatch) {
       newMovementList.push({ movement: '', time: 20 });
       dispatch(setMovementList(newMovementList));
     },
-    handleRemoveInput: (movementList, index) => {
+    handleRemoveInput: (movementList, index, numRounds, restTime) => {
       if (movementList.length > 1) {
         let newMovementList = movementList.slice();
         newMovementList.splice(index, 1);
         dispatch(setMovementList(newMovementList));
+        dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
       }
     },
     switchToTimerView: () => {
@@ -120,7 +119,7 @@ function mapDispatchToProps(dispatch) {
 function Form({
   movementList, numRounds, restTime, totalTimeEstimate, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleChangeRestTime, handleUpdateTimeEstimate, handleAddInput, handleRemoveInput, 
+  handleChangeRestTime, handleAddInput, handleRemoveInput, 
   switchToTimerView, highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
@@ -147,7 +146,6 @@ function Form({
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
               handleRemoveInput={handleRemoveInput}
-              handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)}
             />
           )
         })}
@@ -155,9 +153,7 @@ function Form({
 
       <TouchableOpacity
         onPress={(e) => {
-          // e.preventDefault();
           handleAddInput(movementList);
-          handleUpdateTimeEstimate(movementList, numRounds, restTime);
         }}
       >
         <Text style={formStyles.addButton}><AddIcon/></Text>
@@ -168,10 +164,9 @@ function Form({
           <Text>REST TIME:  </Text>
           <TextInput
             keyboardType={"number-pad"}
-            onChangeText={(e) => {
-              // e.preventDefault();
-              handleChangeRestTime(Number(e.target.value));
-              handleUpdateTimeEstimate(movementList, numRounds, Number(e.target.value));
+            onChangeText={(val) => {
+              console.log('printed rest time', val);
+              handleChangeRestTime(Number(val), movementList, numRounds);
             }}
             placeholder={"Rest"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
@@ -181,8 +176,9 @@ function Form({
           <Text># ROUNDS:  </Text>
           <TextInput
             keyboardType={"number-pad"}
-            onChange={(e) => {
-              handleChangeNumRounds(Number(e.target.value), movementList, restTime);
+            onChange={(val) => {
+              console.log('printed num rounds', val);
+              handleChangeNumRounds(Number(val), movementList, restTime);
             }}
             placeholder={"# Rounds"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
