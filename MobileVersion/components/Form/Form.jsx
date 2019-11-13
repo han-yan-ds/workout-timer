@@ -165,7 +165,6 @@ function Form({
           <TextInput
             keyboardType={"number-pad"}
             onChangeText={(val) => {
-              console.log('printed rest time', val);
               handleChangeRestTime(Number(val), movementList, numRounds);
             }}
             placeholder={"Rest"}
@@ -176,8 +175,7 @@ function Form({
           <Text># ROUNDS:  </Text>
           <TextInput
             keyboardType={"number-pad"}
-            onChange={(val) => {
-              console.log('printed num rounds', val);
+            onChangeText={(val) => {
               handleChangeNumRounds(Number(val), movementList, restTime);
             }}
             placeholder={"# Rounds"}
