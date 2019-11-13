@@ -17,6 +17,8 @@ function FormEntry({
   movementList, 
   movement, 
   index, 
+  numRounds,
+  restTime,
   handleChangeMovement, 
   handleChangeTime,
   handleAddInput, 
@@ -26,18 +28,12 @@ function FormEntry({
   let alertInputMovement = (movement.movement === '' && highlightInvalidForms) ? 'red-input' : '';
   let alertInputTime = (movement.time === 0 && highlightInvalidForms) ? 'red-input' : '';
   return (
-    // <Formik
-    //   initialValues={{exercise: ''}}
-    //   onSubmit={values => console.log('Formik onSubmit', values)}
-    // >
     <React.Fragment>
-      {/* { () => ( */}
         <View style={formStyles.formEntryContainer}>
 
           <TextInput // this is input for the name of the exercise
             onChangeText={(val) => {
-              handleChangeMovement(movementList, index, val);
-              handleUpdateTimeEstimate();
+              handleChangeMovement(movementList, index, val, numRounds, restTime);
             }}
             onBlur={(val) => console.log('Blurred', val)}
             onFocus={(val) => console.log('Focused', val)}
@@ -70,57 +66,9 @@ function FormEntry({
           </TouchableOpacity>
 
         </View>
-      {/* ) } */}
-    {/* </Formik> */}
     </React.Fragment>
   );
-  // return (
-    // <div className='each-exercise-entry'>
-    //   <input type="text"
-    //     className={`input-field-movement ${alertInputMovement}`}
-    //     onChange={(e) => {
-    //       handleChangeMovement(movementList, index, e.target.value);
-    //       handleUpdateTimeEstimate();
-    //     }}
-    //     onKeyPress={(e) => {
-    //       if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
-    //         e.preventDefault(); // prevent Enter from removing field
-    //         handleAddInput();
-    //       }
-    //     }}
-    //     placeholder="Name of Exercise"
-    //     value={movement.movement}
-    //   >
-    //   </input>
-    //   <input type="number"
-    //     min={0}
-    //     className={`input-field-number ${alertInputTime}`}
-    //     onChange={(e) => {
-    //       handleChangeTime(movementList, index, Number(e.target.value));
-    //       handleUpdateTimeEstimate();
-    //     }}
-    //     onKeyPress={(e) => {
-    //       if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
-    //         e.preventDefault(); // prevent Enter from removing field
-    //         handleAddInput();
-    //       }
-    //     }}
-    //     placeholder="# sec"
-    //     value={movement.time}
-    //   >
-    //   </input>
-    //   <button 
-    //     onClick={(e) => {
-    //       e.preventDefault();
-    //       handleRemoveInput(movementList, index);
-    //       handleUpdateTimeEstimate();
-    //     }}
-    //     className="remove-button">
-    //     X
-    //   </button>
-    //   <br />
-    // </div>
-  // );
+
 }
 
 FormEntry.propTypes = {

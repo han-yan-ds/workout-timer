@@ -71,10 +71,11 @@ function mapDispatchToProps(dispatch) {
       let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       dispatch(setWorkout(fullWorkout));
     },
-    handleChangeMovement: (movementList, index, movement) => {
+    handleChangeMovement: (movementList, index, movement, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].movement = movement;
       dispatch(setMovementList(newMovementList));
+      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
     handleChangeTime: (movementList, index, time) => {
       let newMovementList = movementList.slice();
@@ -138,6 +139,8 @@ function Form({
               movementList={movementList}
               movement={movement}
               index={index}
+              numRounds={numRounds}
+              restTime={restTime}
               handleChangeMovement={handleChangeMovement}
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
