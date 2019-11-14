@@ -71,23 +71,24 @@ function mapDispatchToProps(dispatch) {
       let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       dispatch(setWorkout(fullWorkout));
     },
-    handleChangeMovement: (movementList, index, movement) => {
+    handleChangeMovement: (movementList, index, movement, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].movement = movement;
       dispatch(setMovementList(newMovementList));
+      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
-    handleChangeTime: (movementList, index, time) => {
+    handleChangeTime: (movementList, index, time, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].time = time;
       dispatch(setMovementList(newMovementList));
+      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
     },
-    handleChangeNumRounds: (numRounds) => {
+    handleChangeNumRounds: (numRounds, movementList, restTime) => {
       dispatch(setNumRounds(numRounds));
+      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
-    handleChangeRestTime: (restTime) => {
+    handleChangeRestTime: (restTime, movementList, numRounds) => {
       dispatch(setRestTime(restTime));
-    },
-    handleUpdateTimeEstimate: (movementList, numRounds, restTime) => {
       dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
     },
     handleAddInput: (movementList) => {
@@ -95,11 +96,12 @@ function mapDispatchToProps(dispatch) {
       newMovementList.push({ movement: '', time: defaultExerciseTime });
       dispatch(setMovementList(newMovementList));
     },
-    handleRemoveInput: (movementList, index) => {
+    handleRemoveInput: (movementList, index, numRounds, restTime) => {
       if (movementList.length > 1) {
         let newMovementList = movementList.slice();
         newMovementList.splice(index, 1);
         dispatch(setMovementList(newMovementList));
+        dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
       }
     },
     switchToTimerView: () => {
@@ -117,7 +119,7 @@ function mapDispatchToProps(dispatch) {
 function Form({
   movementList, numRounds, restTime, totalTimeEstimate, isTimerView,
   setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
-  handleChangeRestTime, handleUpdateTimeEstimate, handleAddInput, handleRemoveInput, 
+  handleChangeRestTime, handleAddInput, handleRemoveInput, 
   switchToTimerView, highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
@@ -138,11 +140,12 @@ function Form({
               movementList={movementList}
               movement={movement}
               index={index}
+              numRounds={numRounds}
+              restTime={restTime}
               handleChangeMovement={handleChangeMovement}
               handleChangeTime={handleChangeTime}
               handleAddInput={() => handleAddInput(movementList)}
-              handleRemoveInput={handleRemoveInput}
-              handleUpdateTimeEstimate={() => handleUpdateTimeEstimate(movementList, numRounds, restTime)}
+              handleRemoveInput={() => handleRemoveInput(movementList, index, numRounds, restTime)}
             />
           )
         })}
@@ -150,9 +153,7 @@ function Form({
 
       <TouchableOpacity
         onPress={(e) => {
-          // e.preventDefault();
           handleAddInput(movementList);
-          handleUpdateTimeEstimate(movementList, numRounds, restTime);
         }}
       >
         <Text style={formStyles.addButton}><AddIcon/></Text>
@@ -163,26 +164,24 @@ function Form({
           <Text>REST TIME:  </Text>
           <TextInput
             keyboardType={"number-pad"}
-            onChangeText={(e) => {
-              // e.preventDefault();
-              handleChangeRestTime(Number(e.target.value));
-              handleUpdateTimeEstimate(movementList, numRounds, Number(e.target.value));
+            onChangeText={(val) => {
+              handleChangeRestTime(Number(val), movementList, numRounds);
             }}
             placeholder={"Rest"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
+            value={String(restTime)}
           />
         </View>
         <View >
           <Text># ROUNDS:  </Text>
           <TextInput
             keyboardType={"number-pad"}
-            onChange={(e) => {
-              // e.preventDefault();
-              handleChangeNumRounds(Number(e.target.value));
-              handleUpdateTimeEstimate(movementList, Number(e.target.value), restTime);
+            onChangeText={(val) => {
+              handleChangeNumRounds(Number(val), movementList, restTime);
             }}
             placeholder={"# Rounds"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
+            value={String(numRounds)}
           />
         </View>
       </View>

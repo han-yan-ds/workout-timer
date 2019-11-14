@@ -3,7 +3,7 @@ function zeroPad(num, places) {
   return `O${Array(+(zero > 0 && zero)).join('0')}${num}`;
 }
 
-const defaultExerciseTime = 20;
+const defaultExerciseTime = 0;
 
 const defaultMovementList = [{movement: 'Pushups', time: defaultExerciseTime, roundNo: 0, step: 1}];
 
