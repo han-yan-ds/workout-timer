@@ -3,9 +3,12 @@ function zeroPad(num, places) {
   return `O${Array(+(zero > 0 && zero)).join('0')}${num}`;
 }
 
-const defaultMovementList = [{movement: '', time: 0, roundNo: 0, step: 1}];
+const defaultExerciseTime = 0;
+
+const defaultMovementList = [{movement: '', time: defaultExerciseTime, roundNo: 0, step: 1}];
 
 export {
   zeroPad,
   defaultMovementList,
+  defaultExerciseTime,
 }
