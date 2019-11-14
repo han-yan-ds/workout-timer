@@ -4,7 +4,7 @@ import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
 import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
-import { zeroPad } from '../../util/util';
+import { zeroPad, defaultExerciseTime } from '../../util/util';
 import moment from 'moment';
 
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
@@ -92,7 +92,7 @@ function mapDispatchToProps(dispatch) {
     },
     handleAddInput: (movementList) => {
       let newMovementList = movementList.slice();
-      newMovementList.push({ movement: '', time: 20 });
+      newMovementList.push({ movement: '', time: defaultExerciseTime });
       dispatch(setMovementList(newMovementList));
     },
     handleRemoveInput: (movementList, index) => {
