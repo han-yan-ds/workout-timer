@@ -5,7 +5,7 @@ function zeroPad(num, places) {
 
 const defaultExerciseTime = 0;
 
-const defaultMovementList = [{movement: 'Pushups', time: defaultExerciseTime, roundNo: 0, step: 1}];
+const defaultMovementList = [{movement: '', time: defaultExerciseTime, roundNo: 0, step: 1}];
 
 export {
   zeroPad,
