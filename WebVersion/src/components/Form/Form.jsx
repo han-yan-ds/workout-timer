@@ -4,51 +4,7 @@ import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
 import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
-import { zeroPad, defaultExerciseTime } from '../../util/util';
-import moment from 'moment';
-
-function removeEmptyMovementEntries(movementList) {
-  return movementList.filter((movement) => {
-    return (movement.movement !== '' && movement.time > 0);
-  });
-}
-
-function generateFinalWorkout(movementList, numRounds, restTime = 0) {
-  let result = [];
-  movementList = removeEmptyMovementEntries(movementList);
-  for (let i = 0; i < numRounds; i++) {
-    let newMovementList = movementList.reduce((accum, movement, index) => {
-      accum.push({
-        movement: movement.movement.toUpperCase(),
-        time: movement.time,
-        roundNo: i,
-        step: index+1,
-      });
-      if (restTime > 0) {
-        accum.push({
-          movement: 'REST',
-          time: restTime,
-          roundNo: i,
-          step: index+1,
-        })
-      }
-      return accum;
-    }, []);
-    result = result.concat(newMovementList);
-  }
-  if (restTime > 0) {
-    result.pop()
-  }
-  return result;
-}
-
-function estimateTotalTime(movementList, numRounds, restTime = 0) {
-  let finalWorkout = generateFinalWorkout(movementList, numRounds, restTime);
-  let numSeconds = finalWorkout.reduce((accum, part) => {
-    return accum + part.time;
-  }, 0);
-  return moment.utc(moment(numSeconds * 1000).diff(moment(0))).format('HH:mm:ss');
-}
+import { zeroPad, defaultExerciseTime, removeEmptyMovementEntries, generateFinalWorkout, estimateTotalTime } from '../../util/util';
 
 function mapStateToProps(state) {
   const { movementList, numRounds, restTime, totalTimeEstimate, isTimerView } = state;
