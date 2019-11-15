@@ -40,7 +40,7 @@ function generateFinalWorkout(movementList, numRounds, restTime = 0) {
   if (restTime > 0) {
     result.pop()
   }
-  return result;
+  return (result.length !== 0) ? result : defaultMovementList;
 }
 
 function estimateTotalTime(finalWorkout) {
