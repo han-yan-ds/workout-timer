@@ -64,7 +64,7 @@ function mapDispatchToProps(dispatch) {
         dispatch(setMovementList(newMovementList));
         dispatch(setWorkout(fullWorkout));
         dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
-        }
+      }
     },
     switchToTimerView: () => {
       dispatch(switchToTimer());

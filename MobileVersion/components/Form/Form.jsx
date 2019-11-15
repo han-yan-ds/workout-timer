@@ -4,55 +4,11 @@ import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
 import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
-import { zeroPad, defaultExerciseTime } from '../../util/util';
-import moment from 'moment';
+import { zeroPad, defaultExerciseTime, removeEmptyMovementEntries, generateFinalWorkout, estimateTotalTime } from '../../util/util';
 
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import formStyles from '../../styles/formStyles';
 import AddIcon from '@material-ui/icons/AddCircle';
-
-function removeEmptyMovementEntries(movementList) {
-  return movementList.filter((movement) => {
-    return (movement.movement !== '' && movement.time > 0);
-  });
-}
-
-function generateFinalWorkout(movementList, numRounds, restTime = 0) {
-  let result = [];
-  movementList = removeEmptyMovementEntries(movementList);
-  for (let i = 0; i < numRounds; i++) {
-    let newMovementList = movementList.reduce((accum, movement, index) => {
-      accum.push({
-        movement: movement.movement.toUpperCase(),
-        time: movement.time,
-        roundNo: i,
-        step: index+1,
-      });
-      if (restTime > 0) {
-        accum.push({
-          movement: 'REST',
-          time: restTime,
-          roundNo: i,
-          step: index+1,
-        })
-      }
-      return accum;
-    }, []);
-    result = result.concat(newMovementList);
-  }
-  if (restTime > 0) {
-    result.pop()
-  }
-  return result;
-}
-
-function estimateTotalTime(movementList, numRounds, restTime = 0) {
-  let finalWorkout = generateFinalWorkout(movementList, numRounds, restTime);
-  let numSeconds = finalWorkout.reduce((accum, part) => {
-    return accum + part.time;
-  }, 0);
-  return moment.utc(moment(numSeconds * 1000).diff(moment(0))).format('HH:mm:ss');
-}
 
 function mapStateToProps(state) {
   const { movementList, numRounds, restTime, totalTimeEstimate, isTimerView } = state;
@@ -74,22 +30,30 @@ function mapDispatchToProps(dispatch) {
     handleChangeMovement: (movementList, index, movement, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].movement = movement;
+      let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
       dispatch(setMovementList(newMovementList));
-      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeTime: (movementList, index, time, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].time = time;
+      let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
       dispatch(setMovementList(newMovementList));
-      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeNumRounds: (numRounds, movementList, restTime) => {
+      let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       dispatch(setNumRounds(numRounds));
-      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeRestTime: (restTime, movementList, numRounds) => {
+      let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       dispatch(setRestTime(restTime));
-      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleAddInput: (movementList) => {
       let newMovementList = movementList.slice();
@@ -100,8 +64,10 @@ function mapDispatchToProps(dispatch) {
       if (movementList.length > 1) {
         let newMovementList = movementList.slice();
         newMovementList.splice(index, 1);
+        let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
         dispatch(setMovementList(newMovementList));
-        dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
+        dispatch(setWorkout(fullWorkout));
+        dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
       }
     },
     switchToTimerView: () => {

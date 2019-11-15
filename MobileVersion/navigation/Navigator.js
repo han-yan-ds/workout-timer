@@ -38,8 +38,8 @@ FormStack.navigationOptions = {
 
 const BottomTabNavigator = createBottomTabNavigator({
   // different stack navigator objects
+  FormStack,
   TimerStack,
-  FormStack
 });
 
 export default createAppContainer(BottomTabNavigator);
