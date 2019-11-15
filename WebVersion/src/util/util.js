@@ -43,8 +43,7 @@ function generateFinalWorkout(movementList, numRounds, restTime = 0) {
   return result;
 }
 
-function estimateTotalTime(movementList, numRounds, restTime = 0) {
-  let finalWorkout = generateFinalWorkout(movementList, numRounds, restTime);
+function estimateTotalTime(finalWorkout) {
   let numSeconds = finalWorkout.reduce((accum, part) => {
     return accum + part.time;
   }, 0);

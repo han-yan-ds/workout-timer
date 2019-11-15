@@ -26,22 +26,30 @@ function mapDispatchToProps(dispatch) {
     handleChangeMovement: (movementList, index, movement, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].movement = movement;
+      let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
       dispatch(setMovementList(newMovementList));
-      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeTime: (movementList, index, time, numRounds, restTime) => {
       let newMovementList = movementList.slice();
       newMovementList[index].time = time;
+      let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
       dispatch(setMovementList(newMovementList));
-      dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeNumRounds: (numRounds, movementList, restTime) => {
+      let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       dispatch(setNumRounds(numRounds));
-      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeRestTime: (restTime, movementList, numRounds) => {
+      let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
       dispatch(setRestTime(restTime));
-      dispatch(updateTimeEstimate(estimateTotalTime(movementList, numRounds, restTime)));
+      dispatch(setWorkout(fullWorkout));
+      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleAddInput: (movementList) => {
       let newMovementList = movementList.slice();
@@ -52,9 +60,11 @@ function mapDispatchToProps(dispatch) {
       if (movementList.length > 1) {
         let newMovementList = movementList.slice();
         newMovementList.splice(index, 1);
+        let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
         dispatch(setMovementList(newMovementList));
-        dispatch(updateTimeEstimate(estimateTotalTime(newMovementList, numRounds, restTime)));
-      }
+        dispatch(setWorkout(fullWorkout));
+        dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
+        }
     },
     switchToTimerView: () => {
       dispatch(switchToTimer());
@@ -139,7 +149,6 @@ function Form({
         <button onClick={(e) => {
           e.preventDefault();
           if (removeEmptyMovementEntries(movementList).length > 0) {
-            setFullWorkout(movementList, numRounds, restTime);
             switchToTimerView();
             unHighlightInvalidForms();
           } else {
