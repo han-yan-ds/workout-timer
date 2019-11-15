@@ -32,8 +32,8 @@ function FormEntry({
             onChangeText={(val) => {
               handleChangeMovement(movementList, index, val, numRounds, restTime);
             }}
-            // onBlur={(val) => console.log('Blurred', val)}
-            // onFocus={(val) => console.log('Focused', val)}
+            //onBlur={(val) => console.log('Blurred', val)}
+            //onFocus={(val) => console.log('Focused', val)}
             placeholder={"Exercise"}
             style={[formStyles.formGeneral, formStyles.formExercise]}
             value={movementList[index].movement}
