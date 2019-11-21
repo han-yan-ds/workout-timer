@@ -3,7 +3,7 @@ import { vw } from 'react-native-expo-viewport-units';
 
 export default StyleSheet.create({
   header: {
-    fontSize: '1.7em',
+    fontSize: 27.2,
     fontWeight: 'bold',
     color: 'orange',
   },
