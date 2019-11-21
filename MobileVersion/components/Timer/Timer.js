@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import PT from 'prop-types';
 
-import Confirmation from './Confirmation.jsx';
+import Confirmation from './Confirmation';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';

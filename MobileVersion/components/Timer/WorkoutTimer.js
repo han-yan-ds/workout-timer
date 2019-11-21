@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeMovementIndex, switchToForm } from '../../actions/actions';
-import Timer from "./Timer.jsx";
+import Timer from "./Timer";
 import PT from 'prop-types';
 
 import {View} from 'react-native';
