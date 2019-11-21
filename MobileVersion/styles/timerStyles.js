@@ -10,11 +10,11 @@ export default StyleSheet.create({
     paddingVertical: vmax(4),
   },
   timerInfoText: {
-    fontSize: '1.5em',
+    fontSize: 24,
     paddingBottom: vmax(4),
   },
   timerExerciseText: {
-    fontSize: '2.5em',
+    fontSize: 40,
   },
   buttonContainer: {
     display: 'flex',
@@ -43,8 +43,8 @@ export default StyleSheet.create({
     opacity: 0,
   },
   timerTimeText: {
-    fontSize: '4em',
-    fontWeight: 'bolder',
+    fontSize: 64,
+    fontWeight: 'bold',
   },
   timerRunning: {
     color: 'limegreen',
