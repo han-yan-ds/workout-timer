@@ -26,7 +26,7 @@ export default StyleSheet.create({
     width: vmax(8),
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1.25,
+    borderWidth: 1.3,
     padding: 0,
   },
   buttonIcon: {

@@ -116,15 +116,16 @@ function Form({
             />
           )
         })}
+
+        <TouchableOpacity
+          onPress={(e) => {
+            handleAddInput(movementList);
+          }}
+        >
+          <Text style={[screenStyles.screenText, formStyles.addButton]}><AddIcon/></Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        onPress={(e) => {
-          handleAddInput(movementList);
-        }}
-      >
-        <Text style={[screenStyles.screenText, formStyles.addButton]}><AddIcon/></Text>
-      </TouchableOpacity>
 
       <View style={formStyles.formEntryContainer}>
         <View >
