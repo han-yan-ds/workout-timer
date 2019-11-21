@@ -8,6 +8,7 @@ import { zeroPad, defaultExerciseTime, removeEmptyMovementEntries, generateFinal
 
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import formStyles from '../../styles/formStyles';
+import screenStyles from '../../styles/screenStyles';
 import AddIcon from '@material-ui/icons/AddCircle';
 
 function mapStateToProps(state) {
@@ -95,7 +96,7 @@ function Form({
       style={formStyles.formContainer}
     >
 
-      <Text style={formStyles.header}>
+      <Text style={[screenStyles.screenText, formStyles.header]}>
         CREATE WORKOUT
       </Text>
 
@@ -122,12 +123,12 @@ function Form({
           handleAddInput(movementList);
         }}
       >
-        <Text style={formStyles.addButton}><AddIcon/></Text>
+        <Text style={[screenStyles.screenText, formStyles.addButton]}><AddIcon/></Text>
       </TouchableOpacity>
 
       <View style={formStyles.formEntryContainer}>
         <View >
-          <Text>REST TIME:  </Text>
+          <Text style={screenStyles.screenText}>REST TIME:  </Text>
           <TextInput
             keyboardType={"number-pad"}
             onChangeText={(val) => {
@@ -139,7 +140,7 @@ function Form({
           />
         </View>
         <View >
-          <Text># ROUNDS:  </Text>
+          <Text style={screenStyles.screenText}># ROUNDS:  </Text>
           <TextInput
             keyboardType={"number-pad"}
             onChangeText={(val) => {
@@ -153,7 +154,7 @@ function Form({
       </View>
 
       <View>
-        <Text>{`Total Time:  ${totalTimeEstimate}`}</Text>
+        <Text style={screenStyles.screenText}>{`Total Time:  ${totalTimeEstimate}`}</Text>
       </View>
 
     </View>

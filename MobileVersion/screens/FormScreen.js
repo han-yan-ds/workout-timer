@@ -19,9 +19,7 @@ class FormScreen extends Component {
   render() {
     return (
       <View style={styles.screenContainer}>
-        <Text style={styles.screenText}>
-          <Form />
-        </Text>
+        <Form />
       </View>
     );
   }

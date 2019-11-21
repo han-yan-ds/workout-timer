@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PT from 'prop-types';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import formStyles from '../../styles/formStyles';
+import screenStyles from '../../styles/screenStyles';
 
 import XIcon from '@material-ui/icons/Close';
 
@@ -54,7 +55,7 @@ function FormEntry({
               handleRemoveInput(movementList, index);
             }}
           >
-            <Text style={formStyles.closeButton}>
+            <Text style={[screenStyles.screenText, formStyles.closeButton]}>
               <XIcon />
             </Text>
           </TouchableOpacity>

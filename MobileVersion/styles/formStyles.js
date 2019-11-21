@@ -4,6 +4,7 @@ import { vw } from 'react-native-expo-viewport-units';
 export default StyleSheet.create({
   header: {
     fontSize: '1.7em',
+    fontWeight: 'bold',
   },
   formContainer: {
     flexDirection: 'column',
