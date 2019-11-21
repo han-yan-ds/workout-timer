@@ -4,13 +4,16 @@ import { vw } from 'react-native-expo-viewport-units';
 export default StyleSheet.create({
   header: {
     fontSize: '1.7em',
+    fontWeight: 'bold',
+    color: 'orange',
   },
   formContainer: {
     flexDirection: 'column',
+    paddingHorizontal: (vw(37)/3.5)
   },
   formEntryContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   formGeneral: {
