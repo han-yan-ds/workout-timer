@@ -5,14 +5,12 @@ import {
 } from 'react-native';
 import WorkoutTimer from '../components/Timer/WorkoutTimer.jsx'
 
-import styles from '../styles/screenStyles';
+import screenStyles from '../styles/screenStyles';
 
 function TimerScreen() {
   return (
-    <View style={styles.screenContainer}>
-      <Text style={styles.screenText}>
-        <WorkoutTimer />
-      </Text>
+    <View style={screenStyles.screenContainer}>
+      <WorkoutTimer />
     </View>
   );
 }

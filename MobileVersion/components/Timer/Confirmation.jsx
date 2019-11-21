@@ -4,6 +4,7 @@ import PT from 'prop-types';
 import { changeMovementIndex } from '../../actions/actions';
 
 import overlayStyles from '../../styles/overlayStyles';
+import screenStyles from '../../styles/screenStyles';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 function mapDispatchToProps (dispatch) {
@@ -15,7 +16,7 @@ function mapDispatchToProps (dispatch) {
 function Confirmation ({styleName, resetTimer, goToFirstMovement, exitConfirmation}) {
   return (
     <View id="confirmation-overlay" style={styleName}>
-      <Text style={overlayStyles.overlayRestartPrompt}>
+      <Text style={[screenStyles.screenText, overlayStyles.overlayRestartPrompt]}>
         Sure You Want To Restart The Entire Workout?
       </Text>
 
