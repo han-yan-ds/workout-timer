@@ -3,7 +3,7 @@ import {
   Text,
   View
 } from 'react-native';
-import WorkoutTimer from '../components/Timer/WorkoutTimer.jsx'
+import WorkoutTimer from '../components/Timer/WorkoutTimer';
 
 import screenStyles from '../styles/screenStyles';
 

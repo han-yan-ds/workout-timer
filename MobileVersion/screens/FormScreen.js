@@ -3,7 +3,7 @@ import {
   Text,
   View
 } from 'react-native';
-import Form from '../components/Form/Form.jsx'
+import Form from '../components/Form/Form';
 import { withNavigationFocus } from 'react-navigation';
 
 import styles from '../styles/screenStyles';
