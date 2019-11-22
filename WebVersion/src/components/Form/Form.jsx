@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import FormEntry from './FormEntry.jsx';
+import AddIcon from '@material-ui/icons/AddCircle';
 import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
   highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad, defaultExerciseTime, removeEmptyMovementEntries, generateFinalWorkout, estimateTotalTime } from '../../util/util';
@@ -114,7 +115,9 @@ function Form({
           handleAddInput(movementList);
         }}
           id='add-exercise-button'
-        >Add</button>
+        >
+          <AddIcon/>
+        </button>
 
         <br /><br /><br />
 
