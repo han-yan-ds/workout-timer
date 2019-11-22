@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import PT from 'prop-types';
 
-import Confirmation from './Confirmation.jsx';
+import Confirmation from './Confirmation';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -11,6 +11,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import RestartIcon from '@material-ui/icons/Refresh';
 
 import timerStyles from '../../styles/timerStyles';
+import screenStyles from '../../styles/screenStyles';
 import appStyles from '../../styles/appStyles';
 import overlayStyles from '../../styles/overlayStyles';
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -137,8 +138,8 @@ class Timer extends Component {
         <View id="timer-master-container" style={timerStyles.timerMasterContainer}>
 
           <View style={timerStyles.timerSubArea}>
-            <Text style={[timerStyles.timerInfoText, timerStyles.timerExerciseText]}>{this.props.movement}</Text>
-            <Text style={[timerStyles.timerTimeText, isTickingCSS, {opacity: this.state.timerFadeValue}]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
+            <Text style={[screenStyles.screenText, timerStyles.timerInfoText, timerStyles.timerExerciseText]}>{this.props.movement}</Text>
+            <Text style={[screenStyles.screenText, timerStyles.timerTimeText, isTickingCSS, {opacity: this.state.timerFadeValue}]}>{moment(this.state.timerLeft * 1000).format('mm:ss')}</Text>
           </View>
           
           <View style={[timerStyles.buttonContainer, timerStyles.timerSubArea]}>
@@ -189,10 +190,10 @@ class Timer extends Component {
           </View>
           
           <View style={timerStyles.timerSubArea}>
-            <Text id="round-step-indicator" style={timerStyles.timerInfoText}>
+            <Text id="round-step-indicator" style={[screenStyles.screenText, timerStyles.timerInfoText]}>
               Round: {this.props.roundNo + 1}, Step: {this.props.step}
             </Text>
-            <Text style={timerStyles.timerInfoText}>
+            <Text style={[screenStyles.screenText, timerStyles.timerInfoText]}>
               {this.props.nextUp}
             </Text>
           </View>

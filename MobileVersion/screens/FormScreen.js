@@ -3,7 +3,7 @@ import {
   Text,
   View
 } from 'react-native';
-import Form from '../components/Form/Form.jsx'
+import Form from '../components/Form/Form';
 import { withNavigationFocus } from 'react-navigation';
 
 import styles from '../styles/screenStyles';
@@ -19,9 +19,7 @@ class FormScreen extends Component {
   render() {
     return (
       <View style={styles.screenContainer}>
-        <Text style={styles.screenText}>
-          <Form />
-        </Text>
+        <Form />
       </View>
     );
   }

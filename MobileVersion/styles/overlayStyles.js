@@ -8,10 +8,10 @@ export default StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
     height: '100%',
-    maxWidth: '100%',
+    width: '100%',
   },
   overlayRestartPrompt: {
-    fontSize: '1.5em',
+    fontSize: 24,
   },
   overlayButtonContainer: {
     display: 'flex',
