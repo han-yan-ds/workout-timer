@@ -28,7 +28,7 @@ There are 2 screens to this app:  a Form screen and a Timer screen
 
 ## Form Screen:
 
-![Form Screen](/src/images/formview.png)
+![Form Screen](/WebVersion/src/images/formview.png)
 
 Here you can customize you workout.  You can:
 
@@ -44,13 +44,21 @@ In order to start your workout timer after setting up your workout, hit the STAR
 
 ## Timer Screen:
 
-![Timer Screen](/src/images/timerview.png)
+![Timer Screen](/WebVersion/src/images/timerview.png)
 
 Here you can Start and Pause your workout.
 
 You can also skip to the next exercise, or return to the previous exercise.
 
 If you return to the Form, your timer will NOT be reset.  
+
+## Resetting (Restarting) a Workout
+
+![Timer Screen Paused](/WebVersion/src/images/timerpaused.png)
+
+The reset button will only show when the timer is PAUSED.  If you want to restart your workout, please hit Pause, then Reset, and a prompt will ask if you're sure.
+
+![Reset Prompt](/WebVersion/src/images/resetprompt.png)
 
 
 ## Authors
