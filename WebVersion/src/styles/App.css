@@ -46,6 +46,13 @@ button {
   border: 0px;
 }
 
+#add-exercise-button {
+  margin: 3px;
+  background-color: rgba(0, 0, 0, 0);
+  border-width: 0;
+  color: limegreen;
+}
+
 .display-button {
   background-color: lightblue;
   height: 50px;
