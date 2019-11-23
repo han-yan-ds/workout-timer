@@ -7,6 +7,7 @@ function zeroPad(num, places) {
 
 const defaultExerciseTime = 20;
 const defaultMovementList = [{movement: '', time: defaultExerciseTime, roundNo: 0, step: 1}];
+const zeroMovementList = [{movement: '', time: 0, roundNo: 0, step: 1}];
 
 function removeEmptyMovementEntries(movementList) {
   return movementList.filter((movement) => {
@@ -40,7 +41,7 @@ function generateFinalWorkout(movementList, numRounds, restTime = 0) {
   if (restTime > 0) {
     result.pop()
   }
-  return result;
+  return (result.length !== 0) ? result : zeroMovementList;
 }
 
 function estimateTotalTime(finalWorkout) {
