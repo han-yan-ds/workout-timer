@@ -107,14 +107,10 @@ button {
 
 .overlay-button {
   display: inline-block;
-  width: 30%;
-  height: 100%;
-  border-width: 0px;
+  padding: 10px;
+  border-width: 0;
   border-radius: 5px;
-  font-size: max(13px, 0.6em);
   font-weight: bold;
-  text-align: center;
-  padding: 0;
 }
 
 #confirm-restart-button {
