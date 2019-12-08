@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PT from 'prop-types';
 import FormEntry from './FormEntry';
 import { setWorkout, setMovementList, setNumRounds, setRestTime, switchToTimer, updateTimeEstimate,
-  highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
+  changeMovementIndex, highlightInvalidFormsAction, unHighlightInvalidFormsAction } from '../../actions/actions';
 import { zeroPad, defaultExerciseTime, removeEmptyMovementEntries, generateFinalWorkout, estimateTotalTime } from '../../util/util';
 
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
@@ -12,13 +12,14 @@ import screenStyles from '../../styles/screenStyles';
 import AddIcon from '@material-ui/icons/AddCircle';
 
 function mapStateToProps(state) {
-  const { movementList, numRounds, restTime, totalTimeEstimate, isTimerView } = state;
+  const { movementList, numRounds, restTime, totalTimeEstimate, isTimerView, currentMovementIndex } = state;
   return {
     movementList,
     numRounds,
     restTime,
     totalTimeEstimate,
     isTimerView,
+    currentMovementIndex,
   }
 }
 
@@ -44,11 +45,18 @@ function mapDispatchToProps(dispatch) {
       dispatch(setWorkout(fullWorkout));
       dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
-    handleChangeNumRounds: (numRounds, movementList, restTime) => {
+    handleChangeNumRounds: async (numRounds, movementList, restTime, currentMovementIndex) => {
       let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
-      dispatch(setNumRounds(numRounds));
-      dispatch(setWorkout(fullWorkout));
-      dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
+      await (new Promise((res) => {
+        if (currentMovementIndex >= fullWorkout.length) dispatch(changeMovementIndex(0));
+        res();
+      }));
+      await (new Promise((res) => {
+        dispatch(setNumRounds(numRounds));
+        dispatch(setWorkout(fullWorkout));
+        dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
+        res();
+      }));
     },
     handleChangeRestTime: (restTime, movementList, numRounds) => {
       let fullWorkout = generateFinalWorkout(movementList, numRounds, restTime);
@@ -63,6 +71,7 @@ function mapDispatchToProps(dispatch) {
     },
     handleRemoveInput: (movementList, index, numRounds, restTime) => {
       if (movementList.length > 1) {
+        dispatch(changeMovementIndex(0));
         let newMovementList = movementList.slice();
         newMovementList.splice(index, 1);
         let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
@@ -85,12 +94,11 @@ function mapDispatchToProps(dispatch) {
 
 function Form({
   movementList, numRounds, restTime, totalTimeEstimate, isTimerView,
-  setFullWorkout, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
+  currentMovementIndex, handleChangeMovement, handleChangeTime, handleChangeNumRounds,
   handleChangeRestTime, handleAddInput, handleRemoveInput, 
   switchToTimerView, highlightInvalidForms, unHighlightInvalidForms,
 }) {
   let hideClass = (isTimerView) ? 'hide' : 'show';
-
   return (
     <View
       style={formStyles.formContainer}
@@ -145,7 +153,7 @@ function Form({
           <TextInput
             keyboardType={"number-pad"}
             onChangeText={(val) => {
-              handleChangeNumRounds(Number(val), movementList, restTime);
+              handleChangeNumRounds(Number(val), movementList, restTime, currentMovementIndex);
             }}
             placeholder={"# Rounds"}
             style={[formStyles.formGeneral, formStyles.formRestRounds]}
