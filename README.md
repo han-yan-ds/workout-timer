@@ -52,6 +52,14 @@ You can also skip to the next exercise, or return to the previous exercise.
 
 If you return to the Form, your timer will NOT be reset.  
 
+## Resetting (Restarting) a Workout
+
+![Timer Screen Paused](/WebVersion/src/images/timerpaused.png)
+
+The reset button will only show when the timer is PAUSED.  If you want to restart your workout, please hit Pause, then Reset, and a prompt will ask if you're sure.
+
+![Reset Prompt](/WebVersion/src/images/resetprompt.png)
+
 
 ## Authors
 

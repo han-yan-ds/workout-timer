@@ -35,7 +35,7 @@ function WorkoutTimer({
 }) {
   let thisMovement = finalWorkout[currentMovementIndex];
   let hasPrev = currentMovementIndex !== 0;
-  let hasNext = currentMovementIndex !== finalWorkout.length-1;
+  let hasNext = currentMovementIndex < finalWorkout.length-1;
   let nextMovement = (hasNext) ? finalWorkout[currentMovementIndex+1] : null;
   let nextUp = (hasNext) ? `Next: ${nextMovement.movement} for ${nextMovement.time} seconds` : 'Last Exercise!';
   let hideClass = (isTimerView) ? 'show' : 'hide';
