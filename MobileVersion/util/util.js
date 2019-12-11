@@ -31,7 +31,7 @@ function generateFinalWorkout(movementList, numRounds, restTime = 0) {
           movement: 'REST',
           time: restTime,
           roundNo: i,
-          step: index+1,
+          step: index+2,
         })
       }
       return accum;
