@@ -26,6 +26,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(setWorkout(fullWorkout));
     },
     handleChangeMovement: (movementList, index, movement, numRounds, restTime) => {
+      dispatch(changeMovementIndex(0));
       let newMovementList = movementList.slice();
       newMovementList[index].movement = movement;
       let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
@@ -34,6 +35,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(updateTimeEstimate(estimateTotalTime(fullWorkout)));
     },
     handleChangeTime: (movementList, index, time, numRounds, restTime) => {
+      dispatch(changeMovementIndex(0));
       let newMovementList = movementList.slice();
       newMovementList[index].time = time;
       let fullWorkout = generateFinalWorkout(newMovementList, numRounds, restTime);
