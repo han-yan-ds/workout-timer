@@ -99,7 +99,7 @@ function Form({
   let hideClass = (isTimerView) ? 'hide' : 'show';
   return (
     <div id="form-view" className={hideClass}>
-      <h3>
+      <h3 data-test="form-title">
         CREATE WORKOUT
       </h3>
       <form>
