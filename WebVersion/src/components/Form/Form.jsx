@@ -170,6 +170,7 @@ function Form({
           }
         }}
           id='start-workout-button'
+          data-test='start-workout-button'
         >
           START WORKOUT
         </button>

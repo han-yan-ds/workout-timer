@@ -36,6 +36,7 @@ function FormEntry({
         }}
         placeholder="Name of Exercise"
         value={movement.movement}
+        data-test={`exercise-input-${index}`}
       >
       </input>
       <input type="number"
@@ -52,6 +53,7 @@ function FormEntry({
         }}
         placeholder="# sec"
         value={movement.time}
+        data-test={`exercise-time-input-${index}`}
       >
       </input>
       <button 
