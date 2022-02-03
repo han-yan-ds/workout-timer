@@ -29,7 +29,7 @@ function FormEntry({
           handleChangeMovement(movementList, index, e.target.value, numRounds, restTime);
         }}
         onKeyPress={(e) => {
-          if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
+          if (e.key === 'Enter' || e.which === 13 || e.keyCode === 13) {
             e.preventDefault(); // prevent Enter from removing field
             handleAddInput();
           }
@@ -45,7 +45,7 @@ function FormEntry({
           handleChangeTime(movementList, index, Number(e.target.value), numRounds, restTime);
         }}
         onKeyPress={(e) => {
-          if (e.key === 'Enter' || e.which==13 || e.keyCode==13) {
+          if (e.key === 'Enter' || e.which === 13 || e.keyCode === 13) {
             e.preventDefault(); // prevent Enter from removing field
             handleAddInput();
           }
